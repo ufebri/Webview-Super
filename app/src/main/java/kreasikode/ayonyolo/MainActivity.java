@@ -1,28 +1,43 @@
 package kreasikode.ayonyolo;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ClipData;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.DecelerateInterpolator;
-import android.webkit.WebChromeClient;
+import android.webkit.ValueCallback;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
-public class MainActivity extends AppCompatActivity {
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+
+import java.util.List;
+
+import kreasikode.ayonyolo.config.ChromeClient;
+import kreasikode.ayonyolo.config.Constant;
+
+import pub.devrel.easypermissions.EasyPermissions;
+
+public class MainActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks {
 
 
     ProgressBar progressBar;
@@ -31,6 +46,10 @@ public class MainActivity extends AppCompatActivity {
     private CoordinatorLayout coordinatorLayout;
     private WebView webView;
     private ImageView splash;
+    private static final String[] REQUIRED_PERMISSION =
+            {Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE};
+    private static final int FILECHOOSER_RESULTCODE = 1;
+    private ChromeClient chromeClient;
 
     @SuppressLint({"SetJavaScriptEnabled", "ObsoleteSdkInt"})
     @Override
@@ -50,7 +69,14 @@ public class MainActivity extends AppCompatActivity {
         webView = findViewById(R.id.wv_nyoloWeb);
         webView.setVisibility(View.GONE);
 
-        loadWeb();
+        if (hasCameraPermission())
+            loadWeb();
+        else
+            EasyPermissions.requestPermissions(
+                    this,
+                    "This app needs access to your camera so you can take pictures.",
+                    Constant.REQUEST_REQUIRED_PERMISSION,
+                    REQUIRED_PERMISSION);
 
     }
 
@@ -84,13 +110,21 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        webView.loadUrl("https://nyolo.com/");
-        webView.setWebChromeClient(new WebChromeClient());
+        webView.loadUrl("https://barber.co.id/");
+
+        //Set Custom Chrome Client
+        chromeClient = new ChromeClient(this, (intent, resultCode) ->
+                startActivityForResult(intent, resultCode));
+        webView.setWebChromeClient(chromeClient);
 
         WebSettings settings = webView.getSettings();
         settings.setJavaScriptEnabled(true);
         settings.setDatabaseEnabled(true);
+        settings.setAllowFileAccessFromFileURLs(true);
+        settings.setAllowUniversalAccessFromFileURLs(true);
         settings.setDomStorageEnabled(true);
+        settings.setMediaPlaybackRequiresUserGesture(false);
+        settings.setJavaScriptCanOpenWindowsAutomatically(true);
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
             settings.setDatabasePath("/data/data" + webView.getContext().getPackageName() + "/databases/");
@@ -129,5 +163,66 @@ public class MainActivity extends AppCompatActivity {
         } else {
             exitDialog();
         }
+    }
+
+    private boolean hasCameraPermission() {
+        return EasyPermissions.hasPermissions(MainActivity.this, REQUIRED_PERMISSION);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
+
+    @Override
+    public void onPermissionsGranted(int requestCode, @NonNull List<String> perms) {
+        loadWeb();
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
+        EasyPermissions.requestPermissions(
+                this,
+                "This app needs access to your camera so you can take pictures.",
+                Constant.REQUEST_REQUIRED_PERMISSION,
+                REQUIRED_PERMISSION);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        if (requestCode == FILECHOOSER_RESULTCODE) {
+            ValueCallback<Uri[]> mUploadMessages = chromeClient.getResultChooserImage().getValueCallback();
+            Uri mCapturedImageURI = chromeClient.getResultChooserImage().getUri();
+            if (mUploadMessages != null)
+                handleUploadMessages(intent, mUploadMessages, mCapturedImageURI);
+        }
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private void handleUploadMessages(Intent intent, ValueCallback<Uri[]> mUploadMessages, Uri mCapturedImageURI) {
+        Uri[] results = null;
+        try {
+            if (intent != null) {
+                String dataString = intent.getDataString();
+                ClipData clipData = intent.getClipData();
+                if (clipData != null) {
+                    results = new Uri[clipData.getItemCount()];
+                    for (int i = 0; i < clipData.getItemCount(); i++) {
+                        ClipData.Item item = clipData.getItemAt(i);
+                        results[i] = item.getUri();
+                    }
+                }
+                if (dataString != null) {
+                    results = new Uri[]{Uri.parse(dataString)};
+                }
+            } else {
+                results = new Uri[]{mCapturedImageURI};
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        mUploadMessages.onReceiveValue(results);
     }
 }
