@@ -1,5 +1,7 @@
 package kreasikode.ayonyolo;
 
+import static kreasikode.ayonyolo.config.Constant.WEB_URL;
+
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
@@ -7,7 +9,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ClipData;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -34,7 +35,6 @@ import java.util.List;
 
 import kreasikode.ayonyolo.config.ChromeClient;
 import kreasikode.ayonyolo.config.Constant;
-
 import pub.devrel.easypermissions.EasyPermissions;
 
 public class MainActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks {
@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
         else
             EasyPermissions.requestPermissions(
                     this,
-                    "This app needs access to your camera so you can take pictures.",
+                    getString(R.string.permission_message_denied_camera),
                     Constant.REQUEST_REQUIRED_PERMISSION,
                     REQUIRED_PERMISSION);
 
@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
             }
         });
 
-        webView.loadUrl("https://barber.co.id/");
+        webView.loadUrl(WEB_URL);
 
         //Set Custom Chrome Client
         chromeClient = new ChromeClient(this, (intent, resultCode) ->
@@ -134,23 +134,13 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
     protected void exitDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 
-        builder.setTitle("Yakin Ingin Keluar?");
-        builder.setMessage("Ada banyak cerita yang belum kamu baca, yakin mau keluar?");
+        builder.setTitle(getString(R.string.alert_quit_title));
+        builder.setMessage(getString(R.string.alert_quit_message));
         builder.setCancelable(true);
 
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                MainActivity.super.onBackPressed();
-            }
-        });
+        builder.setPositiveButton(getText(R.string.text_yes), (dialogInterface, i) -> MainActivity.super.onBackPressed());
 
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-
-            }
-        });
+        builder.setNegativeButton(getString(R.string.text_no), (dialogInterface, i) -> dialogInterface.cancel());
 
         AlertDialog dialog = builder.create();
         dialog.show();
@@ -184,7 +174,7 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
     public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
         EasyPermissions.requestPermissions(
                 this,
-                "This app needs access to your camera so you can take pictures.",
+                getString(R.string.permission_message_denied_camera),
                 Constant.REQUEST_REQUIRED_PERMISSION,
                 REQUIRED_PERMISSION);
     }

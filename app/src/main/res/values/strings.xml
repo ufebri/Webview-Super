@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Ayo Nyolo</string>
+
+
+    <!--  Permission Message  -->
+    <string name="permission_message_denied_camera">"This app needs access to your camera so you can take pictures."</string>
+
+    <!--  General Message  -->
+    <string name="alert_quit_title">Yakin Ingin Keluar?</string>
+    <string name="alert_quit_message">Ada banyak cerita yang belum kamu baca, yakin mau keluar?</string>
+    <string name="text_yes">Ya</string>
+    <string name="text_no">Tidak</string>
 </resources>
