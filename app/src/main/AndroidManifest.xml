@@ -11,9 +11,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/an_logo"
+        android:icon="@drawable/ic_app"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/an_logo"
+        android:roundIcon="@drawable/ic_app"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <activity android:name=".MainActivity">

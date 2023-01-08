@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Ayo Nyolo</string>
+    <string name="app_name">Ray Talk Tech</string>
 
 
     <!--  Permission Message  -->
@@ -10,4 +10,8 @@
     <string name="alert_quit_message">Ada banyak cerita yang belum kamu baca, yakin mau keluar?</string>
     <string name="text_yes">Ya</string>
     <string name="text_no">Tidak</string>
+
+
+    <!--  Description of ImageView  -->
+    <string name="img_desc_icon_splashscreen">Icon of Apps</string>
 </resources>

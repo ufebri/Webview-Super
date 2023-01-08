@@ -3,4 +3,8 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <!--  Customize Color this for asset  -->
+    <color name="colorSplashScreenBackground">#262262</color>
+
 </resources>
