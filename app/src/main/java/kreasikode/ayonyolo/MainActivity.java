@@ -30,6 +30,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.content.ContextCompat;
 
 import java.util.List;
 
@@ -63,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
         progressBar = findViewById(R.id.pb_webLoad);
 
         coordinatorLayout = findViewById(R.id.cl_webView);
+        coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorSplashScreenBackground));
 
         splash = findViewById(R.id.img_splash);
 

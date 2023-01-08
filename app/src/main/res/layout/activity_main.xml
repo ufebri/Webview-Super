@@ -4,17 +4,18 @@
     android:id="@+id/cl_webView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000"
     tools:context=".MainActivity">
 
     <ImageView
         android:id="@+id/img_splash"
         android:layout_width="wrap_content"
         android:layout_height="100dp"
-        android:elevation="0dp"
         android:layout_gravity="center"
         android:background="@android:color/transparent"
-        android:src="@drawable/transparent" />
+        android:contentDescription="@string/img_desc_icon_splashscreen"
+        android:elevation="0dp"
+        android:scaleType="center"
+        android:src="@drawable/img_icon_splash" />
 
     <ProgressBar
         android:id="@+id/pb_webLoad"
@@ -26,8 +27,8 @@
 
     <WebView
         android:id="@+id/wv_nyoloWeb"
-        tools:visibility="gone"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        tools:visibility="gone" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
