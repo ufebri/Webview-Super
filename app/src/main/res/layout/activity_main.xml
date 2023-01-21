@@ -1,34 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cl_webView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorSplashScreenBackground"
     tools:context=".MainActivity">
 
     <ImageView
         android:id="@+id/img_splash"
         android:layout_width="wrap_content"
-        android:layout_height="100dp"
-        android:layout_gravity="center"
+        android:layout_height="@dimen/img_height_splash"
         android:background="@android:color/transparent"
         android:contentDescription="@string/img_desc_icon_splashscreen"
         android:elevation="0dp"
         android:scaleType="center"
-        android:src="@drawable/img_icon_splash" />
+        android:src="@drawable/img_icon_splash"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ProgressBar
         android:id="@+id/pb_webLoad"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="200dp" />
+        android:indeterminateTint="@color/colorProgressBar"
+        app:layout_constraintEnd_toEndOf="@id/img_splash"
+        app:layout_constraintStart_toStartOf="@id/img_splash"
+        app:layout_constraintTop_toBottomOf="@id/img_splash" />
 
 
-    <WebView
+    <kreasikode.ayonyolo.ui.component.CustomWebView
         android:id="@+id/wv_nyoloWeb"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="gone"
         tools:visibility="gone" />
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/floating_action_settings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dimen_24dp"
+        android:layout_marginBottom="@dimen/dimen_8dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center_horizontal"
+        android:padding="@dimen/dimen_8dp"
+        android:text="@string/text_action_settings"
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:visibility="gone"
+        app:backgroundTint="@color/colorFabSettings"
+        app:icon="@drawable/ic_outline_settings"
+        app:layout_constraintBottom_toTopOf="@id/floating_action_share"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:visibility="visible" />
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/floating_action_share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dimen_24dp"
+        android:layout_marginBottom="@dimen/dimen_8dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center_horizontal"
+        android:padding="@dimen/dimen_8dp"
+        android:text="@string/text_action_share"
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:visibility="gone"
+        app:backgroundTint="@color/colorFabShare"
+        app:icon="@drawable/ic_share"
+        app:layout_constraintBottom_toTopOf="@id/floating_action_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:visibility="visible" />
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floating_action_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dimen_16dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="gone"
+        app:backgroundTint="@color/colorFabMain"
+        app:fabSize="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_double_arrow"
+        tools:visibility="visible" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

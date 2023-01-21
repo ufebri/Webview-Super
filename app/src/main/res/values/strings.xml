@@ -1,17 +1,28 @@
 <resources>
-    <string name="app_name">Ray Talk Tech</string>
+    <string name="app_name">Ray Talk Tech
+    </string>
 
 
     <!--  Permission Message  -->
-    <string name="permission_message_denied_camera">"This app needs access to your camera so you can take pictures."</string>
+    <string name="permission_title_camera">Allow Permission to camera</string>
+    <string name="permission_message_denied_camera">This app needs access to your camera so you can take pictures.</string>
 
     <!--  General Message  -->
     <string name="alert_quit_title">Yakin Ingin Keluar?</string>
     <string name="alert_quit_message">Ada banyak cerita yang belum kamu baca, yakin mau keluar?</string>
     <string name="text_yes">Ya</string>
     <string name="text_no">Tidak</string>
+    <string name="text_action_share">Share</string>
+    <string name="text_action_settings">Settings</string>
+    <string name="text_accept">Accept</string>
+    <string name="text_deny">Deny</string>
 
 
     <!--  Description of ImageView  -->
     <string name="img_desc_icon_splashscreen">Icon of Apps</string>
+
+    <!--  Message of Share Intent  -->
+    <string name="share_intent_subject">@string/app_name</string>
+    <string name="share_intent_message">Check this out : </string>
+
 </resources>
