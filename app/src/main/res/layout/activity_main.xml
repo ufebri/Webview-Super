@@ -31,13 +31,21 @@
         app:layout_constraintStart_toStartOf="@id/img_splash"
         app:layout_constraintTop_toBottomOf="@id/img_splash" />
 
-
-    <kreasikode.ayonyolo.ui.component.CustomWebView
-        android:id="@+id/wv_nyoloWeb"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/srl_webview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone"
-        tools:visibility="gone" />
+        tools:visibility="visible">
+
+        <kreasikode.ayonyolo.ui.component.CustomWebView
+            android:id="@+id/wv_nyoloWeb"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            tools:visibility="gone" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton

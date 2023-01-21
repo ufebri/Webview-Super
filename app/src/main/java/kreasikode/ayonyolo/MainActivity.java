@@ -32,6 +32,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -45,7 +46,7 @@ import kreasikode.ayonyolo.ui.component.GeneralAlertDialog;
 import kreasikode.ayonyolo.util.VideoEnabledWebChromeClient;
 import pub.devrel.easypermissions.EasyPermissions;
 
-public class MainActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks, View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks, View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
 
     private ProgressBar progressBar;
     private CustomWebView webView;
@@ -55,6 +56,8 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
     private ConstraintLayout parentView;
     private ChromeClient chromeClient;
     private Boolean isAllFabsVisible = false;
+
+    private SwipeRefreshLayout refreshLayout;
 
     @SuppressLint({"SetJavaScriptEnabled", "ObsoleteSdkInt"})
     @Override
@@ -70,11 +73,15 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
         progressBar = findViewById(R.id.pb_webLoad);
         splash = findViewById(R.id.img_splash);
         webView = findViewById(R.id.wv_nyoloWeb);
+        refreshLayout = findViewById(R.id.srl_webview);
 
         //onClick
         fabMain.setOnClickListener(this);
         fabSettings.setOnClickListener(this);
         fabShare.setOnClickListener(this);
+
+        //listener
+        refreshLayout.setOnRefreshListener(this);
 
         if (hasCameraPermission())
             loadWeb();
@@ -101,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
         animationSet.addAnimation(fadeIn);
         animationSet.addAnimation(fadeOut);
 
-        webView.setWebViewClient(new WebViewClient() {
+        webView.setWebViewClient(new WebViewKitClient() {
             @Override
             public void onPageFinished(WebView view, String url) {
                 splash.setAnimation(fadeOut);
@@ -110,6 +117,7 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
                     public void run() {
                         progressBar.setVisibility(View.GONE);
                         splash.setVisibility(View.GONE);
+                        refreshLayout.setVisibility(View.VISIBLE);
                         webView.setVisibility(View.VISIBLE);
                         fabMain.setVisibility(View.VISIBLE);
                         webView.setAnimation(fadeIn);
@@ -287,5 +295,11 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
         shareIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_name));
         shareIntent.putExtra(android.content.Intent.EXTRA_TEXT, intentMessage);
         startActivity(shareIntent);
+    }
+
+    @Override
+    public void onRefresh() {
+        webView.reload();
+        refreshLayout.setRefreshing(false);
     }
 }
