@@ -11,6 +11,7 @@ import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.ClipData;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -110,6 +111,12 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
 
         webView.setWebViewClient(new WebViewKitClient() {
             @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                super.onPageStarted(view, url, favicon);
+                setToRefresh(chromeClient.isNeedToRefresh);
+            }
+
+            @Override
             public void onPageFinished(WebView view, String url) {
                 splash.setAnimation(fadeOut);
                 splash.postDelayed(new Runnable() {
@@ -121,6 +128,7 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
                         webView.setVisibility(View.VISIBLE);
                         fabMain.setVisibility(View.VISIBLE);
                         webView.setAnimation(fadeIn);
+                        setToRefresh(chromeClient.isNeedToRefresh);
                     }
                 }, SPLASH_LOAD_TIME);
             }
@@ -301,5 +309,10 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
     public void onRefresh() {
         webView.reload();
         refreshLayout.setRefreshing(false);
+    }
+
+    private void setToRefresh(boolean refresh) {
+        refreshLayout.setEnabled(!refresh);
+        refreshLayout.setRefreshing(!refresh);
     }
 }

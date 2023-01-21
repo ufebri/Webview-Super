@@ -25,6 +25,7 @@ public class ChromeClient extends VideoEnabledWebChromeClient {
     private final String TAG = "TEST";
     private PermissionRequest mPermissionRequest;
     private final Context context;
+    public boolean isNeedToRefresh;
 
     private final ImageChooser imageChooser = new ImageChooser();
     private ResultChooserImage resultChooserImage;
@@ -102,5 +103,11 @@ public class ChromeClient extends VideoEnabledWebChromeClient {
 
     public ResultChooserImage getResultChooserImage() {
         return resultChooserImage;
+    }
+
+    @Override
+    public void onProgressChanged(WebView view, int newProgress) {
+        super.onProgressChanged(view, newProgress);
+        isNeedToRefresh = newProgress == 100;
     }
 }
