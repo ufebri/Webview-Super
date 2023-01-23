@@ -17,6 +17,11 @@ public class WebViewKitClient extends WebViewClient {
             view.getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
             return true;
 
+        } else if (url.contains("geo:") || url.contains("maps.app.goo.gl")) {
+            Uri gmmIntentUri = Uri.parse(url);
+            Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+            view.getContext().startActivity(mapIntent);
+            return true;
         } else {
             view.loadUrl(url);
             return true;

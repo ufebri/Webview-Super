@@ -51,7 +51,11 @@
     <string name="demo_geolocation_secondaryAction">Try Maps</string>
 
     <string name="demo_intents_title">Intents</string>
-    <string name="demo_intents_caption">You can add a special link to your HTML file and you will be able to run appropriate external app to perform some action. For example send an e-mail or call somebody. Following intents are supported</string>
+    <string name="demo_intents_caption"><![CDATA[<p>You can add a special link to your HTML file and you will be able to run appropriate external app to perform some action. For example send an e-mail or call somebody. Following intents are supported</p> <p>Email :<br /><a href="mailto:someone@example.com?subject=Hello">mailto:someone@example.com?subject=Hello</a></p>
+<p>Phone Call:<br /><a href="tel:+0123456789">tel:+0123456789</a></p>
+<p>SMS:<br /><a href="sms:+0123456789">sms:+0123456789</a></p>
+<p>Map point:<br /><a href="geo:-0.789275,113.921326">geo:-0.789275,113.921326</a></p>
+<p>Map Search:<br /><a href="geo:-0.789275,113.921326?q=Jakarta">geo:-0.789275,113.921326?q=Jakarta</a></p>]]></string>
 
     <string name="demo_links_title">Links</string>
     <string name="demo_links_caption">URL Links can be opened in internal webview (default) or in external browser. You can easily customize rules for opening links. For example following link is opened internally.</string>

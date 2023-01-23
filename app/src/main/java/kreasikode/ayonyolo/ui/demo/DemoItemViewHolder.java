@@ -1,14 +1,20 @@
 package kreasikode.ayonyolo.ui.demo;
 
+import static android.view.View.GONE;
+
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.text.HtmlCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import kreasikode.ayonyolo.R;
+import kreasikode.ayonyolo.config.ChromeClient;
+import kreasikode.ayonyolo.config.WebViewKitClient;
 import kreasikode.ayonyolo.model.DemoMenu;
 import kreasikode.ayonyolo.util.GeneralHelper;
 
@@ -17,11 +23,15 @@ public class DemoItemViewHolder extends RecyclerView.ViewHolder {
     private ImageView ivCover;
     private TextView tvTitle, tvCaption, tvActionPrimary, tvActionSecondary;
 
+    private WebView wvTextMessage;
+
     private View line;
     private LinearLayout llAction;
 
     private DemoMenu mItem;
     private GeneralHelper.onClickItemListener listener;
+
+    private String mIntentContent;
 
     public DemoItemViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -33,7 +43,9 @@ public class DemoItemViewHolder extends RecyclerView.ViewHolder {
         llAction = itemView.findViewById(R.id.ll_action);
         tvActionPrimary = itemView.findViewById(R.id.tv_action_primary);
         tvActionSecondary = itemView.findViewById(R.id.tv_action_secondary);
+        wvTextMessage = itemView.findViewById(R.id.wv_textMessage);
 
+        mIntentContent = itemView.getContext().getString(R.string.demo_intents_caption);
     }
 
     public void setContent(DemoMenu mItem, GeneralHelper.onClickItemListener itemListener) {
@@ -43,11 +55,23 @@ public class DemoItemViewHolder extends RecyclerView.ViewHolder {
         setImage();
 
         tvTitle.setText(mItem.title);
-        tvCaption.setText(mItem.caption);
 
+        setCaption();
         setPrimaryAction();
         setSecondaryAction();
         setLine();
+    }
+
+    private void setCaption() {
+        if (mItem.caption.contains(mIntentContent)) {
+            wvTextMessage.setVisibility(View.VISIBLE);
+            wvTextMessage.loadDataWithBaseURL(null, mItem.caption, "text/html", "utf-8", null);
+            tvCaption.setVisibility(GONE);
+        } else {
+            wvTextMessage.setVisibility(GONE);
+            tvCaption.setVisibility(View.VISIBLE);
+            tvCaption.setText(mItem.caption);
+        }
     }
 
     private void callToAction(int action) {
@@ -75,7 +99,7 @@ public class DemoItemViewHolder extends RecyclerView.ViewHolder {
             ivCover.setVisibility(View.VISIBLE);
             ivCover.setImageDrawable(mItem.imageCover);
         } else {
-            ivCover.setVisibility(View.GONE);
+            ivCover.setVisibility(GONE);
         }
     }
 
@@ -86,7 +110,7 @@ public class DemoItemViewHolder extends RecyclerView.ViewHolder {
 
             tvActionPrimary.setOnClickListener(view -> callToAction(mItem.actionPrimary));
         } else {
-            tvActionPrimary.setVisibility(View.GONE);
+            tvActionPrimary.setVisibility(GONE);
         }
     }
 
@@ -97,12 +121,12 @@ public class DemoItemViewHolder extends RecyclerView.ViewHolder {
 
             tvActionSecondary.setOnClickListener(view -> callToAction(mItem.actionSecondary));
         } else {
-            tvActionSecondary.setVisibility(View.GONE);
+            tvActionSecondary.setVisibility(GONE);
         }
     }
 
     private void setLine() {
-        llAction.setVisibility(isAllActionAvailable() ? View.VISIBLE : View.GONE);
-        line.setVisibility(isAllActionAvailable() ? View.VISIBLE : View.GONE);
+        llAction.setVisibility(isAllActionAvailable() ? View.VISIBLE : GONE);
+        line.setVisibility(isAllActionAvailable() ? View.VISIBLE : GONE);
     }
 }

@@ -15,7 +15,7 @@ public class Constant {
 
     public static final long SPLASH_LOAD_TIME = 1600; //its 1600ms mean 1.6s
 
-    public static final boolean isDemoModeActivated = true;
+    public static final boolean isDemoModeActivated = true; //Demo Mode is for selling
 
     public static final String[] REQUIRED_PERMISSION = {Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION};
 

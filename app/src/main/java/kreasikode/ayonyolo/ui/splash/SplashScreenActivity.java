@@ -43,6 +43,7 @@ public class SplashScreenActivity extends BaseApp {
                 splash.setAnimation(getAnimation());
 
                 startActivity(new Intent(SplashScreenActivity.this, isDemoModeActivated ? DemoActivity.class : MainActivity.class));
+                finish();
             }
         }, SPLASH_LOAD_TIME);
     }
