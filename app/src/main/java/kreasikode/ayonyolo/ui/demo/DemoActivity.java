@@ -1,10 +1,18 @@
 package kreasikode.ayonyolo.ui.demo;
 
+import static kreasikode.ayonyolo.config.Constant.REQUEST_CODE_LOCATION_GEOLOCATION;
+import static kreasikode.ayonyolo.config.Constant.REQUEST_CODE_LOCATION_MAPS;
+import static kreasikode.ayonyolo.config.Constant.REQUEST_CODE_READ_STORAGE_DEMO;
 import static kreasikode.ayonyolo.config.Constant.WEB_URL;
 import static kreasikode.ayonyolo.model.DemoMenu.GO_TO_GOOGLE;
 import static kreasikode.ayonyolo.model.DemoMenu.GO_TO_WEB_PAGE;
+import static kreasikode.ayonyolo.model.DemoMenu.TRY_DOWNLOAD;
+import static kreasikode.ayonyolo.model.DemoMenu.TRY_GEOLOCATION;
+import static kreasikode.ayonyolo.model.DemoMenu.TRY_MAPS;
+import static kreasikode.ayonyolo.model.DemoMenu.TRY_UPLOAD;
 import static kreasikode.ayonyolo.model.DemoMenu.TRY_VIDEO;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -55,7 +63,6 @@ public class DemoActivity extends BaseApp implements View.OnClickListener {
         //listener
         refreshLayout.setOnRefreshListener(this);
 
-
         menuList = new DemoMenu().getListDemoMenu(this);
 
         adapter = new DemoAdapter(this, menuList, item -> {
@@ -71,6 +78,33 @@ public class DemoActivity extends BaseApp implements View.OnClickListener {
                 case TRY_VIDEO:
                     WEB_URL = getString(R.string.links_demo_youtube);
                     startActivity(new Intent(DemoActivity.this, MainActivity.class));
+                    break;
+                case TRY_DOWNLOAD:
+                    DownloadManagerSetup(DemoActivity.this, getString(R.string.links_demo_download));
+                    break;
+                case TRY_UPLOAD:
+                    if (isPermissionActive(Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                        WEB_URL = getString(R.string.links_demo_upload);
+                        startActivity(new Intent(DemoActivity.this, MainActivity.class));
+                    } else {
+                        requestPermission(REQUEST_CODE_READ_STORAGE_DEMO, Manifest.permission.READ_EXTERNAL_STORAGE);
+                    }
+                    break;
+                case TRY_GEOLOCATION:
+                    if (isPermissionActive(Manifest.permission.ACCESS_FINE_LOCATION)) {
+                        WEB_URL = getString(R.string.links_demo_geolocation);
+                        startActivity(new Intent(DemoActivity.this, MainActivity.class));
+                    } else {
+                        requestPermission(REQUEST_CODE_LOCATION_GEOLOCATION, Manifest.permission.ACCESS_FINE_LOCATION);
+                    }
+                    break;
+                case TRY_MAPS:
+                    if (isPermissionActive(Manifest.permission.ACCESS_FINE_LOCATION)) {
+                        WEB_URL = getString(R.string.links_demo_maps);
+                        startActivity(new Intent(DemoActivity.this, MainActivity.class));
+                    } else {
+                        requestPermission(REQUEST_CODE_LOCATION_MAPS, Manifest.permission.ACCESS_FINE_LOCATION);
+                    }
                     break;
             }
         });

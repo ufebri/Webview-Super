@@ -63,6 +63,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/dimen_16dp"
+                android:clickable="true"
+                android:focusable="true"
                 tools:text="Check Your Web" />
 
             <TextView
@@ -71,6 +73,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/dimen_16dp"
+                android:clickable="true"
+                android:focusable="true"
                 tools:text="Check Your Web" />
 
         </LinearLayout>

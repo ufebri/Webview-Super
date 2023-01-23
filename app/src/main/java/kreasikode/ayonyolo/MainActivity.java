@@ -18,11 +18,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
-import android.view.animation.DecelerateInterpolator;
 import android.webkit.ValueCallback;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -87,7 +82,7 @@ public class MainActivity extends BaseApp implements View.OnClickListener {
 
         if (requiredPermission()) loadWeb();
         else
-            EasyPermissions.requestPermissions(this, getString(R.string.permission_message_denied_camera), REQUEST_REQUIRED_PERMISSION, REQUIRED_PERMISSION);
+            EasyPermissions.requestPermissions(this, getString(R.string.permission_message_description_camera), REQUEST_REQUIRED_PERMISSION, REQUIRED_PERMISSION);
 
     }
 
@@ -101,14 +96,12 @@ public class MainActivity extends BaseApp implements View.OnClickListener {
 
             @Override
             public void onPageFinished(WebView view, String url) {
-                refreshLayout.setAnimation(fadeIn());
                 refreshLayout.postDelayed(() -> {
                     progressBar.setVisibility(View.GONE);
                     splash.setVisibility(View.GONE);
                     refreshLayout.setVisibility(View.VISIBLE);
                     webView.setVisibility(View.VISIBLE);
                     fabMain.setVisibility(View.VISIBLE);
-                    webView.setAnimation(fadeOut());
                     setToRefresh(chromeClient.isNeedToRefresh);
                 }, SPLASH_LOAD_TIME);
             }
@@ -163,6 +156,9 @@ public class MainActivity extends BaseApp implements View.OnClickListener {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
             settings.setDatabasePath("/data/data" + webView.getContext().getPackageName() + "/databases/");
         }
+
+        //Download Setup
+        webView.setDownloadListener((url, userAgent, contentDisposition, mimetype, contentLength) -> DownloadManagerSetup(MainActivity.this, url));
     }
 
     public void onBackPressed() {
