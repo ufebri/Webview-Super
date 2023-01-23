@@ -1,6 +1,5 @@
 <resources>
-    <string name="app_name">Ray Talk Tech
-    </string>
+    <string name="app_name">Ray Talk Tech</string>
 
 
     <!--  Permission Message  -->
@@ -25,4 +24,40 @@
     <string name="share_intent_subject">@string/app_name</string>
     <string name="share_intent_message">Check this out : </string>
 
+    <!--  Demo Collection String  -->
+    <string name="demo_introduction_title">Hello</string>
+    <string name="demo_introduction_caption">Welcome to General WebView App created by Ray Talk Tech. This template can be purchased on Envato Marketplace. See our Envato product page or an official documentation for more info</string>
+    <string name="demo_introduction_primaryAction">Webview App Page</string>
+
+    <string name="demo_user_web_title">Try Your Website</string>
+    <string name="demo_user_web_caption">Click on the button bellow to test your own website. Just search for your web using Google and check it out.</string>
+    <string name="demo_user_web_primaryAction">Visit Google</string>
+
+    <string name="demo_download_upload_title">Download And Upload</string>
+    <string name="demo_download_upload_caption">General WebView App has a download manager. Try to download sample file xxxx.mp3. You can also upload a file with the file picker</string>
+    <string name="demo_download_upload_primaryAction">Try Download</string>
+    <string name="demo_download_upload_secondaryAction">Try Upload</string>
+
+    <string name="demo_video_title">Video</string>
+    <string name="demo_video_caption">General WebView App supports HTML5 videos, Youtube, Vimeo, JW Player etc. You can play your favorite video in full screen mode</string>
+    <string name="demo_video_primaryAction">Try Video</string>
+
+    <string name="demo_geolocation_title">Geolocation</string>
+    <string name="demo_geolocation_caption">General WebView App supports HTML5 geolocation. You just need to accept necessary permission on first run of the app</string>
+    <string name="demo_geolocation_primaryAction">Try Geolocation</string>
+    <string name="demo_geolocation_secondaryAction">Try Maps</string>
+
+    <string name="demo_intents_title">Intents</string>
+    <string name="demo_intents_caption">You can add a special link to your HTML file and you will be able to run appropriate external app to perform some action. For example send an e-mail or call somebody. Following intents are supported</string>
+
+    <string name="demo_links_title">Links</string>
+    <string name="demo_links_caption">URL Links can be opened in internal webview (default) or in external browser. You can easily customize rules for opening links. For example following link is opened internally.</string>
+
+
+    <!--  Links  -->
+    <string name="links_app_playstore">link-playstore</string>
+    <string name="links_demo_download">https://orangefreesounds.com/wp-content/uploads/2023/01/Cat-loud-meow-sound-effect.zip</string>
+    <string name="links_demo_homepage">https://raytalktech.com</string>
+    <string name="links_demo_google">https://google.com</string>
+    <string name="links_demo_youtube">https://youtube.com</string>
 </resources>

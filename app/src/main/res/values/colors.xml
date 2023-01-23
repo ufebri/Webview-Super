@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#262262</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#00BCD4</color>
 
     <!--  Customize Color this for asset  -->
     <color name="colorSplashScreenBackground">@color/colorPrimary</color>

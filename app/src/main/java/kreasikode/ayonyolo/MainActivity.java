@@ -5,13 +5,14 @@ import static kreasikode.ayonyolo.config.Constant.REQUEST_REQUIRED_PERMISSION;
 import static kreasikode.ayonyolo.config.Constant.REQUIRED_PERMISSION;
 import static kreasikode.ayonyolo.config.Constant.SPLASH_LOAD_TIME;
 import static kreasikode.ayonyolo.config.Constant.WEB_URL;
+import static kreasikode.ayonyolo.config.Constant.isDemoModeActivated;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
-import android.app.AlertDialog;
 import android.content.ClipData;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -25,13 +26,11 @@ import android.view.animation.DecelerateInterpolator;
 import android.webkit.ValueCallback;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -40,14 +39,14 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
+import kreasikode.ayonyolo.config.BaseApp;
 import kreasikode.ayonyolo.config.ChromeClient;
 import kreasikode.ayonyolo.config.WebViewKitClient;
 import kreasikode.ayonyolo.ui.component.CustomWebView;
 import kreasikode.ayonyolo.ui.component.GeneralAlertDialog;
-import kreasikode.ayonyolo.util.VideoEnabledWebChromeClient;
 import pub.devrel.easypermissions.EasyPermissions;
 
-public class MainActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks, View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
+public class MainActivity extends BaseApp implements View.OnClickListener {
 
     private ProgressBar progressBar;
     private CustomWebView webView;
@@ -84,31 +83,15 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
         //listener
         refreshLayout.setOnRefreshListener(this);
 
-        if (hasCameraPermission())
-            loadWeb();
+        isNeedToShutDownSplash();
+
+        if (requiredPermission()) loadWeb();
         else
-            EasyPermissions.requestPermissions(
-                    this,
-                    getString(R.string.permission_message_denied_camera),
-                    REQUEST_REQUIRED_PERMISSION,
-                    REQUIRED_PERMISSION);
+            EasyPermissions.requestPermissions(this, getString(R.string.permission_message_denied_camera), REQUEST_REQUIRED_PERMISSION, REQUIRED_PERMISSION);
 
     }
 
     private void loadWeb() {
-        final Animation fadeIn = new AlphaAnimation(0, 1);
-        fadeIn.setInterpolator(new DecelerateInterpolator());
-        fadeIn.setDuration(1000);
-
-        final Animation fadeOut = new AlphaAnimation(1, 0);
-        fadeOut.setInterpolator(new AccelerateInterpolator());
-        fadeOut.setStartOffset(1000);
-        fadeOut.setDuration(1000);
-
-        final AnimationSet animationSet = new AnimationSet(false);
-        animationSet.addAnimation(fadeIn);
-        animationSet.addAnimation(fadeOut);
-
         webView.setWebViewClient(new WebViewKitClient() {
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
@@ -118,18 +101,15 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
 
             @Override
             public void onPageFinished(WebView view, String url) {
-                splash.setAnimation(fadeOut);
-                splash.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        progressBar.setVisibility(View.GONE);
-                        splash.setVisibility(View.GONE);
-                        refreshLayout.setVisibility(View.VISIBLE);
-                        webView.setVisibility(View.VISIBLE);
-                        fabMain.setVisibility(View.VISIBLE);
-                        webView.setAnimation(fadeIn);
-                        setToRefresh(chromeClient.isNeedToRefresh);
-                    }
+                refreshLayout.setAnimation(fadeIn());
+                refreshLayout.postDelayed(() -> {
+                    progressBar.setVisibility(View.GONE);
+                    splash.setVisibility(View.GONE);
+                    refreshLayout.setVisibility(View.VISIBLE);
+                    webView.setVisibility(View.VISIBLE);
+                    fabMain.setVisibility(View.VISIBLE);
+                    webView.setAnimation(fadeOut());
+                    setToRefresh(chromeClient.isNeedToRefresh);
                 }, SPLASH_LOAD_TIME);
             }
         });
@@ -137,8 +117,7 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
         webView.loadUrl(WEB_URL);
 
         //Set Custom Chrome Client
-        chromeClient = new ChromeClient(this, parentView, webView, (intent, resultCode) ->
-                startActivityForResult(intent, resultCode));
+        chromeClient = new ChromeClient(this, parentView, webView, (intent, resultCode) -> startActivityForResult(intent, resultCode));
 
         //Set on fullscreen
         chromeClient.setOnToggledFullscreen(fullscreen -> {
@@ -149,13 +128,9 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
                 getWindow().setAttributes(attrs);
                 if (Build.VERSION.SDK_INT >= 14) {
                     //noinspection all
-                    getWindow().getDecorView().setSystemUiVisibility(
-                            View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                                    | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                                    | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
-                                    | View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
-                                    | View.SYSTEM_UI_FLAG_IMMERSIVE);
+                    getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
+                            | View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
+                            | View.SYSTEM_UI_FLAG_IMMERSIVE);
                 }
 
                 //fab is gone
@@ -194,35 +169,21 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
         if (webView.canGoBack()) {
             webView.goBack();
         } else {
-            new GeneralAlertDialog(this, getString(R.string.alert_quit_title), getString(R.string.alert_quit_message), isPass -> {
-                if (isPass)
-                    MainActivity.super.onBackPressed();
-            });
+            if (!isDemoModeActivated)
+                new GeneralAlertDialog(this, getString(R.string.alert_quit_title), getString(R.string.alert_quit_message), isPass -> {
+                    if (isPass) MainActivity.super.onBackPressed();
+                });
+            else MainActivity.super.onBackPressed();
         }
     }
 
-    private boolean hasCameraPermission() {
+    private boolean requiredPermission() {
         return EasyPermissions.hasPermissions(MainActivity.this, REQUIRED_PERMISSION);
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
     }
 
     @Override
     public void onPermissionsGranted(int requestCode, @NonNull List<String> perms) {
         loadWeb();
-    }
-
-    @Override
-    public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
-        EasyPermissions.requestPermissions(
-                this,
-                getString(R.string.permission_message_denied_camera),
-                REQUEST_REQUIRED_PERMISSION,
-                REQUIRED_PERMISSION);
     }
 
     @Override
@@ -312,7 +273,17 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
     }
 
     private void setToRefresh(boolean refresh) {
-        refreshLayout.setEnabled(!refresh);
+        refreshLayout.setEnabled(refresh);
         refreshLayout.setRefreshing(!refresh);
+    }
+
+    private void isNeedToShutDownSplash() {
+        parentView.setBackgroundColor(Color.WHITE);
+
+        refreshLayout.setVisibility(View.VISIBLE);
+        refreshLayout.setRefreshing(true);
+
+        splash.setVisibility(isDemoModeActivated ? View.GONE : View.VISIBLE);
+        progressBar.setVisibility(isDemoModeActivated ? View.GONE : View.VISIBLE);
     }
 }
