@@ -9,6 +9,7 @@ import static kreasikode.ayonyolo.config.Constant.isDemoModeActivated;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.ClipData;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -39,6 +40,7 @@ import kreasikode.ayonyolo.config.ChromeClient;
 import kreasikode.ayonyolo.config.WebViewKitClient;
 import kreasikode.ayonyolo.ui.component.CustomWebView;
 import kreasikode.ayonyolo.ui.component.GeneralAlertDialog;
+import kreasikode.ayonyolo.ui.settings.SettingsActivity;
 import pub.devrel.easypermissions.EasyPermissions;
 
 public class MainActivity extends BaseApp implements View.OnClickListener {
@@ -53,6 +55,12 @@ public class MainActivity extends BaseApp implements View.OnClickListener {
     private Boolean isAllFabsVisible = false;
 
     private SwipeRefreshLayout refreshLayout;
+    public static String url;
+
+    public static void launchActivity(Activity caller, String mURL) {
+        url = mURL;
+        caller.startActivity(new Intent(caller, MainActivity.class));
+    }
 
     @SuppressLint({"SetJavaScriptEnabled", "ObsoleteSdkInt"})
     @Override
@@ -107,7 +115,7 @@ public class MainActivity extends BaseApp implements View.OnClickListener {
             }
         });
 
-        webView.loadUrl(WEB_URL);
+        webView.loadUrl(getUrl());
 
         //Set Custom Chrome Client
         chromeClient = new ChromeClient(this, parentView, webView, (intent, resultCode) -> startActivityForResult(intent, resultCode));
@@ -226,6 +234,7 @@ public class MainActivity extends BaseApp implements View.OnClickListener {
                 mainFABOnClick();
                 break;
             case R.id.floating_action_settings:
+                startActivity(new Intent(this, SettingsActivity.class));
                 break;
             case R.id.floating_action_share:
                 shareIntent();
@@ -281,5 +290,9 @@ public class MainActivity extends BaseApp implements View.OnClickListener {
 
         splash.setVisibility(isDemoModeActivated ? View.GONE : View.VISIBLE);
         progressBar.setVisibility(isDemoModeActivated ? View.GONE : View.VISIBLE);
+    }
+
+    private String getUrl() {
+        return url != null ? url : WEB_URL;
     }
 }

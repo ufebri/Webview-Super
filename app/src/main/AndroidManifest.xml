@@ -18,12 +18,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".ui.settings.SettingsActivity"
+            android:exported="false"
+            android:label="@string/label_menu_settings"
+            android:theme="@style/AppTheme.ActionBar" />
+        <activity
             android:name=".MainActivity"
             android:configChanges="orientation|screenSize"
-            android:exported="true">
-
-        </activity>
-
+            android:exported="true" />
         <activity
             android:name=".ui.demo.DemoActivity"
             android:exported="true" />
@@ -37,7 +39,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>

@@ -31,6 +31,7 @@ import kreasikode.ayonyolo.R;
 import kreasikode.ayonyolo.config.BaseApp;
 import kreasikode.ayonyolo.model.DemoMenu;
 import kreasikode.ayonyolo.ui.component.GeneralAlertDialog;
+import kreasikode.ayonyolo.ui.settings.SettingsActivity;
 
 public class DemoActivity extends BaseApp implements View.OnClickListener {
 
@@ -136,6 +137,7 @@ public class DemoActivity extends BaseApp implements View.OnClickListener {
                 mainFABOnClick();
                 break;
             case R.id.floating_action_settings:
+                startActivity(new Intent(this, SettingsActivity.class));
                 break;
             case R.id.floating_action_share:
                 shareIntent();

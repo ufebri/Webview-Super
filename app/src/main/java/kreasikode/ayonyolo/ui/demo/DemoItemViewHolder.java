@@ -9,12 +9,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.text.HtmlCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import kreasikode.ayonyolo.R;
-import kreasikode.ayonyolo.config.ChromeClient;
-import kreasikode.ayonyolo.config.WebViewKitClient;
 import kreasikode.ayonyolo.model.DemoMenu;
 import kreasikode.ayonyolo.util.GeneralHelper;
 

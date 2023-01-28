@@ -3,7 +3,9 @@
 
 
     <!--  Permission Message  -->
-    <string name="permission_title_camera">Allow Permission to camera</string>
+    <string name="permission_title_camera">Allow Application to use camera</string>
+    <string name="permission_title_location">Allow Application to Access Location</string>
+    <string name="permission_title_storage">Allow Application to Read Storage</string>
     <string name="permission_message_description_camera">This app needs access to your camera so you can take pictures.</string>
     <string name="permission_message_description_location">This app needs access to your location so you can use geolocation feature</string>
     <string name="permission_message_description_storage">This app needs access to your location so you can upload file on it</string>
@@ -18,6 +20,7 @@
     <string name="text_accept">Accept</string>
     <string name="text_deny">Deny</string>
     <string name="text_downloading_file">Downloading File</string>
+    <string name="general_error_system">There\'s something wrong with the app, check this class configuration or ask the administrator</string>
 
 
     <!--  Description of ImageView  -->
@@ -70,4 +73,23 @@
     <string name="links_demo_upload">https://remove.bg</string>
     <string name="links_demo_geolocation">https://mylocation.org/</string>
     <string name="links_demo_maps">https://maps.google.com</string>
+    <string name="links_preferences_privacy_policy">https://raytalktech.com/privacy-policy/</string>
+    <string name="links_preferences_about">https://raytalktech.com/privacy-policy/</string>
+
+    <!--  Preferences  -->
+    <string name="prefrences_title_group_general">General</string>
+    <string name="preferences_summary_permission">Manually Enable or Disable Permission</string>
+    <string name="preferences_key_permission">permission_key_preferences</string>
+
+    <string name="preferences_subtitle_about">About us</string>
+    <string name="preference_key_about">about_key_preferences</string>
+
+    <string name="preferences_subtitle_privacy">Privacy Policy</string>
+    <string name="preferences_key_privacy">privacy_key_preferences</string>
+
+    <string name="preferences_title_group_about">About</string>
+
+    <!--  Label Menu  -->
+    <string name="label_menu_settings">@string/text_action_settings</string>
+
 </resources>
