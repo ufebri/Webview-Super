@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimary">#262262</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#00BCD4</color>
 
     <!--  Customize Color this for asset  -->
-    <color name="colorSplashScreenBackground">#262262</color>
+    <color name="colorSplashScreenBackground">@color/colorPrimary</color>
+
+    <!--  Color Floating Action button -->
+    <color name="colorFabMain">@color/colorPrimary</color>
+    <color name="colorFabShare">@color/colorPrimary</color>
+    <color name="colorFabSettings">@color/colorPrimary</color>
+
+    <!--  Progressbar Color  -->
+    <color name="colorProgressBar">@android:color/white</color>
 
 </resources>

@@ -1,56 +1,66 @@
 package kreasikode.ayonyolo;
 
+import static kreasikode.ayonyolo.config.Constant.FILECHOOSER_RESULTCODE;
+import static kreasikode.ayonyolo.config.Constant.REQUEST_REQUIRED_PERMISSION;
+import static kreasikode.ayonyolo.config.Constant.REQUIRED_PERMISSION;
+import static kreasikode.ayonyolo.config.Constant.SPLASH_LOAD_TIME;
 import static kreasikode.ayonyolo.config.Constant.WEB_URL;
+import static kreasikode.ayonyolo.config.Constant.isDemoModeActivated;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.ClipData;
-import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
-import android.view.animation.DecelerateInterpolator;
+import android.view.WindowManager;
 import android.webkit.ValueCallback;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.core.content.ContextCompat;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
+import kreasikode.ayonyolo.config.BaseApp;
 import kreasikode.ayonyolo.config.ChromeClient;
-import kreasikode.ayonyolo.config.Constant;
+import kreasikode.ayonyolo.config.WebViewKitClient;
+import kreasikode.ayonyolo.ui.component.CustomWebView;
+import kreasikode.ayonyolo.ui.component.GeneralAlertDialog;
+import kreasikode.ayonyolo.ui.settings.SettingsActivity;
 import pub.devrel.easypermissions.EasyPermissions;
 
-public class MainActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks {
+public class MainActivity extends BaseApp implements View.OnClickListener {
 
-
-    ProgressBar progressBar;
-    private Context context;
-    private Activity activity;
-    private CoordinatorLayout coordinatorLayout;
-    private WebView webView;
+    private ProgressBar progressBar;
+    private CustomWebView webView;
     private ImageView splash;
-    private static final String[] REQUIRED_PERMISSION =
-            {Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE};
-    private static final int FILECHOOSER_RESULTCODE = 1;
+    private FloatingActionButton fabMain;
+    private ExtendedFloatingActionButton fabSettings, fabShare;
+    private ConstraintLayout parentView;
     private ChromeClient chromeClient;
+    private Boolean isAllFabsVisible = false;
+
+    private SwipeRefreshLayout refreshLayout;
+    public static String url;
+
+    public static void launchActivity(Activity caller, String mURL) {
+        url = mURL;
+        caller.startActivity(new Intent(caller, MainActivity.class));
+    }
 
     @SuppressLint({"SetJavaScriptEnabled", "ObsoleteSdkInt"})
     @Override
@@ -58,65 +68,88 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        context = getApplicationContext();
-        activity = this;
-
+        //binding
+        parentView = findViewById(R.id.cl_webView);
+        fabMain = findViewById(R.id.floating_action_button);
+        fabSettings = findViewById(R.id.floating_action_settings);
+        fabShare = findViewById(R.id.floating_action_share);
         progressBar = findViewById(R.id.pb_webLoad);
-
-        coordinatorLayout = findViewById(R.id.cl_webView);
-        coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorSplashScreenBackground));
-
         splash = findViewById(R.id.img_splash);
-
         webView = findViewById(R.id.wv_nyoloWeb);
-        webView.setVisibility(View.GONE);
+        refreshLayout = findViewById(R.id.srl_webview);
 
-        if (hasCameraPermission())
-            loadWeb();
+        //onClick
+        fabMain.setOnClickListener(this);
+        fabSettings.setOnClickListener(this);
+        fabShare.setOnClickListener(this);
+
+        //listener
+        refreshLayout.setOnRefreshListener(this);
+
+        isNeedToShutDownSplash();
+
+        if (requiredPermission()) loadWeb();
         else
-            EasyPermissions.requestPermissions(
-                    this,
-                    getString(R.string.permission_message_denied_camera),
-                    Constant.REQUEST_REQUIRED_PERMISSION,
-                    REQUIRED_PERMISSION);
+            EasyPermissions.requestPermissions(this, getString(R.string.permission_message_description_camera), REQUEST_REQUIRED_PERMISSION, REQUIRED_PERMISSION);
 
     }
 
     private void loadWeb() {
-        final Animation fadeIn = new AlphaAnimation(0, 1);
-        fadeIn.setInterpolator(new DecelerateInterpolator());
-        fadeIn.setDuration(1000);
+        webView.setWebViewClient(new WebViewKitClient() {
+            @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                super.onPageStarted(view, url, favicon);
+                setToRefresh(chromeClient.isNeedToRefresh);
+            }
 
-        final Animation fadeOut = new AlphaAnimation(1, 0);
-        fadeOut.setInterpolator(new AccelerateInterpolator());
-        fadeOut.setStartOffset(1000);
-        fadeOut.setDuration(1000);
-
-        final AnimationSet animationSet = new AnimationSet(false);
-        animationSet.addAnimation(fadeIn);
-        animationSet.addAnimation(fadeOut);
-
-        webView.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url) {
-                splash.setAnimation(fadeOut);
-                splash.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        progressBar.setVisibility(View.GONE);
-                        splash.setVisibility(View.GONE);
-                        webView.setVisibility(View.VISIBLE);
-                        webView.setAnimation(fadeIn);
-                    }
-                }, 1600);
+                refreshLayout.postDelayed(() -> {
+                    progressBar.setVisibility(View.GONE);
+                    splash.setVisibility(View.GONE);
+                    refreshLayout.setVisibility(View.VISIBLE);
+                    webView.setVisibility(View.VISIBLE);
+                    fabMain.setVisibility(View.VISIBLE);
+                    setToRefresh(chromeClient.isNeedToRefresh);
+                }, SPLASH_LOAD_TIME);
             }
         });
 
-        webView.loadUrl(WEB_URL);
+        webView.loadUrl(getUrl());
 
         //Set Custom Chrome Client
-        chromeClient = new ChromeClient(this, (intent, resultCode) ->
-                startActivityForResult(intent, resultCode));
+        chromeClient = new ChromeClient(this, parentView, webView, (intent, resultCode) -> startActivityForResult(intent, resultCode));
+
+        //Set on fullscreen
+        chromeClient.setOnToggledFullscreen(fullscreen -> {
+            WindowManager.LayoutParams attrs = getWindow().getAttributes();
+            if (fullscreen) {
+                attrs.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
+                attrs.flags |= WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
+                getWindow().setAttributes(attrs);
+                if (Build.VERSION.SDK_INT >= 14) {
+                    //noinspection all
+                    getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
+                            | View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
+                            | View.SYSTEM_UI_FLAG_IMMERSIVE);
+                }
+
+                //fab is gone
+                fabMain.hide();
+            } else {
+                attrs.flags &= ~WindowManager.LayoutParams.FLAG_FULLSCREEN;
+                attrs.flags &= ~WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
+                getWindow().setAttributes(attrs);
+                if (Build.VERSION.SDK_INT >= 14) {
+                    //noinspection all
+                    getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
+                }
+
+                //fab is show
+                fabMain.show();
+            }
+        });
+
         webView.setWebChromeClient(chromeClient);
 
         WebSettings settings = webView.getSettings();
@@ -131,54 +164,30 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
             settings.setDatabasePath("/data/data" + webView.getContext().getPackageName() + "/databases/");
         }
-    }
 
-    protected void exitDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-
-        builder.setTitle(getString(R.string.alert_quit_title));
-        builder.setMessage(getString(R.string.alert_quit_message));
-        builder.setCancelable(true);
-
-        builder.setPositiveButton(getText(R.string.text_yes), (dialogInterface, i) -> MainActivity.super.onBackPressed());
-
-        builder.setNegativeButton(getString(R.string.text_no), (dialogInterface, i) -> dialogInterface.cancel());
-
-        AlertDialog dialog = builder.create();
-        dialog.show();
+        //Download Setup
+        webView.setDownloadListener((url, userAgent, contentDisposition, mimetype, contentLength) -> DownloadManagerSetup(MainActivity.this, url));
     }
 
     public void onBackPressed() {
         if (webView.canGoBack()) {
             webView.goBack();
-
         } else {
-            exitDialog();
+            if (!isDemoModeActivated)
+                new GeneralAlertDialog(this, getString(R.string.alert_quit_title), getString(R.string.alert_quit_message), isPass -> {
+                    if (isPass) MainActivity.super.onBackPressed();
+                });
+            else MainActivity.super.onBackPressed();
         }
     }
 
-    private boolean hasCameraPermission() {
+    private boolean requiredPermission() {
         return EasyPermissions.hasPermissions(MainActivity.this, REQUIRED_PERMISSION);
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
     }
 
     @Override
     public void onPermissionsGranted(int requestCode, @NonNull List<String> perms) {
         loadWeb();
-    }
-
-    @Override
-    public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
-        EasyPermissions.requestPermissions(
-                this,
-                getString(R.string.permission_message_denied_camera),
-                Constant.REQUEST_REQUIRED_PERMISSION,
-                REQUIRED_PERMISSION);
     }
 
     @Override
@@ -216,5 +225,74 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
             e.printStackTrace();
         }
         mUploadMessages.onReceiveValue(results);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.floating_action_button:
+                mainFABOnClick();
+                break;
+            case R.id.floating_action_settings:
+                startActivity(new Intent(this, SettingsActivity.class));
+                break;
+            case R.id.floating_action_share:
+                shareIntent();
+                break;
+        }
+    }
+
+    private void mainFABOnClick() {
+        fabSettings.setVisibility(!isAllFabsVisible ? View.VISIBLE : View.GONE);
+        fabShare.setVisibility(!isAllFabsVisible ? View.VISIBLE : View.GONE);
+
+        if (!isAllFabsVisible) {
+            fabSettings.show();
+            fabShare.show();
+            isAllFabsVisible = true;
+        } else {
+            fabSettings.hide();
+            fabShare.hide();
+            isAllFabsVisible = false;
+        }
+    }
+
+    private void shareIntent() {
+        String mTitlePage = webView.getTitle();
+        String mUrlPage = webView.getUrl();
+        String mDescPage = getString(R.string.share_intent_message);
+        String intentMessage = String.format("%s \n %s : \n %s", mDescPage, mTitlePage, mUrlPage);
+
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_name));
+        shareIntent.putExtra(android.content.Intent.EXTRA_TEXT, intentMessage);
+        startActivity(shareIntent);
+    }
+
+    @Override
+    public void onRefresh() {
+        webView.reload();
+        refreshLayout.setRefreshing(false);
+    }
+
+    private void setToRefresh(boolean refresh) {
+        refreshLayout.setEnabled(refresh);
+        refreshLayout.setRefreshing(!refresh);
+    }
+
+    private void isNeedToShutDownSplash() {
+        parentView.setBackgroundColor(Color.WHITE);
+
+        refreshLayout.setVisibility(View.VISIBLE);
+        refreshLayout.setRefreshing(true);
+
+        splash.setVisibility(isDemoModeActivated ? View.GONE : View.VISIBLE);
+        progressBar.setVisibility(isDemoModeActivated ? View.GONE : View.VISIBLE);
+    }
+
+    private String getUrl() {
+        return url != null ? url : WEB_URL;
     }
 }

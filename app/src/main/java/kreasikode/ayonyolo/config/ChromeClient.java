@@ -1,32 +1,41 @@
 package kreasikode.ayonyolo.config;
 
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.webkit.GeolocationPermissions;
 import android.webkit.PermissionRequest;
 import android.webkit.ValueCallback;
-import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.widget.Toast;
 
+import kreasikode.ayonyolo.R;
+import kreasikode.ayonyolo.ui.component.CustomWebView;
+import kreasikode.ayonyolo.ui.component.GeneralAlertDialog;
 import kreasikode.ayonyolo.util.ImageChooser;
+import kreasikode.ayonyolo.util.VideoEnabledWebChromeClient;
 
-public class ChromeClient extends WebChromeClient {
+public class ChromeClient extends VideoEnabledWebChromeClient {
 
     private final String TAG = "TEST";
     private PermissionRequest mPermissionRequest;
     private final Context context;
+    public boolean isNeedToRefresh;
 
     private final ImageChooser imageChooser = new ImageChooser();
     private ResultChooserImage resultChooserImage;
     private final CallBackFileChooser callBackFileChooser;
 
-    public ChromeClient(Context context, CallBackFileChooser callBackFileChooser) {
+    public ChromeClient(Context context, View parentView, CustomWebView webView, CallBackFileChooser callBackFileChooser) {
         this.context = context;
         this.callBackFileChooser = callBackFileChooser;
+        this.activityNonVideoView = parentView;
+        this.activityVideoView = (ViewGroup) parentView;
+        this.webView = webView;
     }
 
     public interface CallBackFileChooser {
@@ -41,20 +50,11 @@ public class ChromeClient extends WebChromeClient {
         for (String r : requestedResources) {
             if (r.equals(PermissionRequest.RESOURCE_VIDEO_CAPTURE)) {
                 // In this sample, we only accept video capture request.
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context)
-                        .setTitle("Allow Permission to camera")
-                        .setPositiveButton("Allow", (dialog, which) -> {
-                            dialog.dismiss();
-                            mPermissionRequest.grant(new String[]{PermissionRequest.RESOURCE_VIDEO_CAPTURE});
-                            Log.d(TAG, "Granted");
-                        })
-                        .setNegativeButton("Deny", (dialog, which) -> {
-                            dialog.dismiss();
-                            mPermissionRequest.deny();
-                            Log.d(TAG, "Denied");
-                        });
-                AlertDialog alertDialog = alertDialogBuilder.create();
-                alertDialog.show();
+                new GeneralAlertDialog(context, context.getString(R.string.permission_title_camera), context.getString(R.string.text_accept), context.getString(R.string.text_deny), isPass -> {
+                    if (isPass)
+                        mPermissionRequest.grant(new String[]{PermissionRequest.RESOURCE_VIDEO_CAPTURE});
+                    else mPermissionRequest.deny();
+                });
                 break;
             }
         }
@@ -67,14 +67,9 @@ public class ChromeClient extends WebChromeClient {
         imageChooser.chooseImage();
 
         //SetResult
-        resultChooserImage = new ResultChooserImage(
-                imageChooser.getResultData().getUri(),
-                filePathCallback
-        );
+        resultChooserImage = new ResultChooserImage(imageChooser.getResultData().getUri(), filePathCallback);
 
-        callBackFileChooser.onSuccessChooser(
-                imageChooser.getResultData().getIntent(),
-                imageChooser.getResultData().getResultCode());
+        callBackFileChooser.onSuccessChooser(imageChooser.getResultData().getIntent(), imageChooser.getResultData().getResultCode());
 
         return true;
     }
@@ -107,5 +102,18 @@ public class ChromeClient extends WebChromeClient {
 
     public ResultChooserImage getResultChooserImage() {
         return resultChooserImage;
+    }
+
+    @Override
+    public void onProgressChanged(WebView view, int newProgress) {
+        super.onProgressChanged(view, newProgress);
+        isNeedToRefresh = newProgress == 100;
+    }
+
+    //Location Setup
+    @Override
+    public void onGeolocationPermissionsShowPrompt(String origin, GeolocationPermissions.Callback callback) {
+        super.onGeolocationPermissionsShowPrompt(origin, callback);
+        callback.invoke(origin, true, false);
     }
 }

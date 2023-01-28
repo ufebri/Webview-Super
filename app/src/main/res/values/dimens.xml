@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="dimen_24dp">24dp</dimen>
+    <dimen name="dimen_8dp">8dp</dimen>
+    <dimen name="dimen_16dp">16dp</dimen>
+
+    <!--  Standard Image Height  -->
+    <dimen name="img_height_splash">100dp</dimen>
+    <dimen name="img_height_cover_item">200dp</dimen>
+
+    <!--  Standard Card Size -->
+    <dimen name="card_corner_radius">4dp</dimen>
+    <dimen name="card_elevation">2dp</dimen>
+
+    <!--  Standard Recyclerview Size  -->
+    <dimen name="recyclerview_padding_bottom">100dp</dimen>
+</resources>

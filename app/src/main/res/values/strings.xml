@@ -3,15 +3,93 @@
 
 
     <!--  Permission Message  -->
-    <string name="permission_message_denied_camera">"This app needs access to your camera so you can take pictures."</string>
+    <string name="permission_title_camera">Allow Application to use camera</string>
+    <string name="permission_title_location">Allow Application to Access Location</string>
+    <string name="permission_title_storage">Allow Application to Read Storage</string>
+    <string name="permission_message_description_camera">This app needs access to your camera so you can take pictures.</string>
+    <string name="permission_message_description_location">This app needs access to your location so you can use geolocation feature</string>
+    <string name="permission_message_description_storage">This app needs access to your location so you can upload file on it</string>
 
     <!--  General Message  -->
     <string name="alert_quit_title">Yakin Ingin Keluar?</string>
     <string name="alert_quit_message">Ada banyak cerita yang belum kamu baca, yakin mau keluar?</string>
     <string name="text_yes">Ya</string>
     <string name="text_no">Tidak</string>
+    <string name="text_action_share">Share</string>
+    <string name="text_action_settings">Settings</string>
+    <string name="text_accept">Accept</string>
+    <string name="text_deny">Deny</string>
+    <string name="text_downloading_file">Downloading File</string>
+    <string name="general_error_system">There\'s something wrong with the app, check this class configuration or ask the administrator</string>
 
 
     <!--  Description of ImageView  -->
     <string name="img_desc_icon_splashscreen">Icon of Apps</string>
+
+    <!--  Message of Share Intent  -->
+    <string name="share_intent_subject">@string/app_name</string>
+    <string name="share_intent_message">Check this out : </string>
+
+    <!--  Demo Collection String  -->
+    <string name="demo_introduction_title">Hello</string>
+    <string name="demo_introduction_caption">Welcome to General WebView App created by Ray Talk Tech. This template can be purchased on Envato Marketplace. See our Envato product page or an official documentation for more info</string>
+    <string name="demo_introduction_primaryAction">Webview App Page</string>
+
+    <string name="demo_user_web_title">Try Your Website</string>
+    <string name="demo_user_web_caption">Click on the button bellow to test your own website. Just search for your web using Google and check it out.</string>
+    <string name="demo_user_web_primaryAction">Visit Google</string>
+
+    <string name="demo_download_upload_title">Download And Upload</string>
+    <string name="demo_download_upload_caption">General WebView App has a download manager. Try to download sample file Cat loud meow sound effect.zip. You can also upload a file with the file picker</string>
+    <string name="demo_download_upload_primaryAction">Try Download</string>
+    <string name="demo_download_upload_secondaryAction">Try Upload</string>
+
+    <string name="demo_video_title">Video</string>
+    <string name="demo_video_caption">General WebView App supports HTML5 videos, Youtube, Vimeo, JW Player etc. You can play your favorite video in full screen mode</string>
+    <string name="demo_video_primaryAction">Try Video</string>
+
+    <string name="demo_geolocation_title">Geolocation</string>
+    <string name="demo_geolocation_caption">General WebView App supports HTML5 geolocation. You just need to accept necessary permission on first run of the app</string>
+    <string name="demo_geolocation_primaryAction">Try Geolocation</string>
+    <string name="demo_geolocation_secondaryAction">Try Maps</string>
+
+    <string name="demo_intents_title">Intents</string>
+    <string name="demo_intents_caption"><![CDATA[<p>You can add a special link to your HTML file and you will be able to run appropriate external app to perform some action. For example send an e-mail or call somebody. Following intents are supported</p> <p>Email :<br /><a href="mailto:someone@example.com?subject=Hello">mailto:someone@example.com?subject=Hello</a></p>
+<p>Phone Call:<br /><a href="tel:+0123456789">tel:+0123456789</a></p>
+<p>SMS:<br /><a href="sms:+0123456789">sms:+0123456789</a></p>
+<p>Map point:<br /><a href="geo:-0.789275,113.921326">geo:-0.789275,113.921326</a></p>
+<p>Map Search:<br /><a href="geo:-0.789275,113.921326?q=Jakarta">geo:-0.789275,113.921326?q=Jakarta</a></p>]]></string>
+
+    <string name="demo_links_title">Links</string>
+    <string name="demo_links_caption">URL Links can be opened in internal webview (default) or in external browser. You can easily customize rules for opening links. For example following link is opened internally.</string>
+
+
+    <!--  Links  -->
+    <string name="links_app_playstore">link-playstore</string>
+    <string name="links_demo_download">https://orangefreesounds.com/wp-content/uploads/2023/01/Cat-loud-meow-sound-effect.zip</string>
+    <string name="links_demo_homepage">https://raytalktech.com</string>
+    <string name="links_demo_google">https://google.com</string>
+    <string name="links_demo_youtube">https://youtube.com</string>
+    <string name="links_demo_upload">https://remove.bg</string>
+    <string name="links_demo_geolocation">https://mylocation.org/</string>
+    <string name="links_demo_maps">https://maps.google.com</string>
+    <string name="links_preferences_privacy_policy">https://raytalktech.com/privacy-policy/</string>
+    <string name="links_preferences_about">https://raytalktech.com/privacy-policy/</string>
+
+    <!--  Preferences  -->
+    <string name="prefrences_title_group_general">General</string>
+    <string name="preferences_summary_permission">Manually Enable or Disable Permission</string>
+    <string name="preferences_key_permission">permission_key_preferences</string>
+
+    <string name="preferences_subtitle_about">About us</string>
+    <string name="preference_key_about">about_key_preferences</string>
+
+    <string name="preferences_subtitle_privacy">Privacy Policy</string>
+    <string name="preferences_key_privacy">privacy_key_preferences</string>
+
+    <string name="preferences_title_group_about">About</string>
+
+    <!--  Label Menu  -->
+    <string name="label_menu_settings">@string/text_action_settings</string>
+
 </resources>
