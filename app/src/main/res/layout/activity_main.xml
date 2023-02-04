@@ -2,10 +2,11 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/cl_webView"
+    android:id="@+id/content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorSplashScreenBackground"
+    tools:background="@android:color/white"
     tools:context=".MainActivity">
 
     <ImageView
@@ -20,7 +21,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="gone" />
 
     <ProgressBar
         android:id="@+id/pb_webLoad"
@@ -29,21 +31,21 @@
         android:indeterminateTint="@color/colorProgressBar"
         app:layout_constraintEnd_toEndOf="@id/img_splash"
         app:layout_constraintStart_toStartOf="@id/img_splash"
-        app:layout_constraintTop_toBottomOf="@id/img_splash" />
+        app:layout_constraintTop_toBottomOf="@id/img_splash"
+        tools:visibility="gone" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/srl_webview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
         tools:visibility="visible">
 
-        <kreasikode.ayonyolo.ui.component.CustomWebView
+        <raystudio.webviewsuper.ui.component.CustomWebView
             android:id="@+id/wv_nyoloWeb"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone"
-            tools:visibility="gone" />
+            tools:visibility="visible" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
@@ -93,7 +95,8 @@
         android:id="@+id/floating_action_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dimen_16dp"
+        android:layout_marginHorizontal="@dimen/dimen_16dp"
+        android:layout_marginVertical="@dimen/dimen_96dp"
         android:clickable="true"
         android:focusable="true"
         android:visibility="gone"
@@ -103,5 +106,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_double_arrow"
         tools:visibility="visible" />
+
+    <include
+        android:id="@+id/section_banner"
+        layout="@layout/item_ads_banner" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
