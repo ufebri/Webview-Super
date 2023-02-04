@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="kreasikode.ayonyolo">
+    package="raystudio.webviewsuper">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -18,20 +18,20 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.settings.SettingsActivity"
+            android:name="raystudio.webviewsuper.ui.settings.SettingsActivity"
             android:exported="false"
             android:label="@string/label_menu_settings"
             android:theme="@style/AppTheme.ActionBar" />
         <activity
-            android:name=".MainActivity"
+            android:name="raystudio.webviewsuper.MainActivity"
             android:configChanges="orientation|screenSize"
             android:exported="true" />
         <activity
-            android:name=".ui.demo.DemoActivity"
+            android:name="raystudio.webviewsuper.ui.demo.DemoActivity"
             android:exported="true" />
 
         <activity
-            android:name=".ui.splash.SplashScreenActivity"
+            android:name="raystudio.webviewsuper.ui.splash.SplashScreenActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -39,6 +39,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!--     Admob   -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="@string/admob_id_dev" />
+
+        <meta-data
+            android:name="com.google.android.gms.ads.INTEGRATION_MANAGER"
+            android:value="wv_nyoloWeb"/>
     </application>
 
 </manifest>

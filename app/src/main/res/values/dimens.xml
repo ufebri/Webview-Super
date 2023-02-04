@@ -4,6 +4,12 @@
     <dimen name="dimen_24dp">24dp</dimen>
     <dimen name="dimen_8dp">8dp</dimen>
     <dimen name="dimen_16dp">16dp</dimen>
+    <dimen name="dimen_32dp">32dp</dimen>
+    <dimen name="dimen_64dp">64dp</dimen>
+    <dimen name="dimen_72dp">72dp</dimen>
+    <dimen name="dimen_80dp">80dp</dimen>
+    <dimen name="dimen_88dp">88dp</dimen>
+    <dimen name="dimen_96dp">96dp</dimen>
 
     <!--  Standard Image Height  -->
     <dimen name="img_height_splash">100dp</dimen>
