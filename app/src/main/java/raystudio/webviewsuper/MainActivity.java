@@ -46,9 +46,7 @@ import pub.devrel.easypermissions.EasyPermissions;
 
 public class MainActivity extends BaseApp implements View.OnClickListener {
 
-    private ProgressBar progressBar;
     private CustomWebView webView;
-    private ImageView splash;
     private FloatingActionButton fabMain;
     private ExtendedFloatingActionButton fabSettings, fabShare;
     private ConstraintLayout parentView;
@@ -74,8 +72,6 @@ public class MainActivity extends BaseApp implements View.OnClickListener {
         fabMain = findViewById(R.id.floating_action_button);
         fabSettings = findViewById(R.id.floating_action_settings);
         fabShare = findViewById(R.id.floating_action_share);
-        progressBar = findViewById(R.id.pb_webLoad);
-        splash = findViewById(R.id.img_splash);
         webView = findViewById(R.id.wv_nyoloWeb);
         refreshLayout = findViewById(R.id.srl_webview);
 
@@ -110,13 +106,9 @@ public class MainActivity extends BaseApp implements View.OnClickListener {
 
             @Override
             public void onPageFinished(WebView view, String url) {
-                refreshLayout.postDelayed(() -> {
-                    progressBar.setVisibility(View.GONE);
-                    splash.setVisibility(View.GONE);
+                view.postDelayed(() -> {
                     refreshLayout.setVisibility(View.VISIBLE);
-                    webView.setVisibility(View.VISIBLE);
                     fabMain.setVisibility(View.VISIBLE);
-                    adViewBanner.setVisibility(View.VISIBLE);
                     setToRefresh(chromeClient.isNeedToRefresh);
                 }, SPLASH_LOAD_TIME);
             }
@@ -295,9 +287,6 @@ public class MainActivity extends BaseApp implements View.OnClickListener {
 
         refreshLayout.setVisibility(View.VISIBLE);
         refreshLayout.setRefreshing(true);
-
-        splash.setVisibility(isDemoModeActivated ? View.GONE : View.VISIBLE);
-        progressBar.setVisibility(isDemoModeActivated ? View.GONE : View.VISIBLE);
     }
 
     private String getUrl() {

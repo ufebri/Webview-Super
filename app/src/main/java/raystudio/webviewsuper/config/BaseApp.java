@@ -44,7 +44,6 @@ public class BaseApp extends AppCompatActivity implements EasyPermissions.Permis
     protected boolean isConnected;
     protected AdView adViewBanner;
     protected AdRequest adRequest;
-
     protected ViewGroup parentView;
 
     @Override
@@ -179,11 +178,6 @@ public class BaseApp extends AppCompatActivity implements EasyPermissions.Permis
         //Adview Config
 
         adViewBanner = findViewById(R.id.adView_banner);
-        //adViewBanner.setAdUnitId(getString(R.string.admob_id_banner));
-//
-//        //The ad size and ad unit ID must be set before loadAd is called.
-//        adViewBanner.setAdSize(GeneralHelper.getAdSize(this, getWindow().getDecorView().findViewById(R.id.content)));
-//
         adRequest = new AdRequest.Builder().build();
         adViewBanner.loadAd(adRequest);
     }

@@ -17,18 +17,21 @@ import raystudio.webviewsuper.util.GeneralHelper;
 
 public class DemoItemViewHolder extends RecyclerView.ViewHolder {
 
-    private ImageView ivCover;
-    private TextView tvTitle, tvCaption, tvActionPrimary, tvActionSecondary;
+    private final ImageView ivCover;
+    private final TextView tvTitle;
+    private final TextView tvCaption;
+    private final TextView tvActionPrimary;
+    private final TextView tvActionSecondary;
 
-    private WebView wvTextMessage;
+    private final WebView wvTextMessage;
 
-    private View line;
-    private LinearLayout llAction;
+    private final View line;
+    private final LinearLayout llAction;
 
     private DemoMenu mItem;
     private GeneralHelper.onClickItemListener listener;
 
-    private String mIntentContent;
+    private final String mIntentContent;
 
     public DemoItemViewHolder(@NonNull View itemView) {
         super(itemView);

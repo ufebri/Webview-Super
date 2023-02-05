@@ -15,10 +15,10 @@ public class Constant {
 
     public static final long SPLASH_LOAD_TIME = 1600; //its 1600ms mean 1.6s
 
-    public static final boolean isDemoModeActivated = true; //Demo Mode is for selling
+    public static final boolean isDemoModeActivated = false; //Demo Mode is for selling
 
     public static final String[] REQUIRED_PERMISSION = {Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION};
 
-    //TODO 01: Change the URL to yours web
+    //TODO: Change the URL to yours web
     public static String WEB_URL = "https://raytalktech.com";
 }
