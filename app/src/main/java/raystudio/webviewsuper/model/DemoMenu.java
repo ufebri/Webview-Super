@@ -101,9 +101,6 @@ public class DemoMenu {
         //Intent
         mList.add(new DemoMenu(context.getString(R.string.demo_intents_title), context.getString(R.string.demo_intents_caption), FULL_CONTENT_WITHOUT_COVER_AND_ALL_ACTION));
 
-        //Links
-        mList.add(new DemoMenu(context.getString(R.string.demo_links_title), context.getString(R.string.demo_links_caption), FULL_CONTENT_WITHOUT_COVER_AND_ALL_ACTION));
-
         return mList;
     }
 }

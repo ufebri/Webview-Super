@@ -2,10 +2,14 @@ package raystudio.webviewsuper.ui.settings;
 
 import android.os.Bundle;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 import raystudio.webviewsuper.R;
 import raystudio.webviewsuper.config.BaseApp;
 
 public class SettingsActivity extends BaseApp {
+
+    private ConstraintLayout parentView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,6 +20,10 @@ public class SettingsActivity extends BaseApp {
 
         if (getSupportActionBar() != null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        parentView = findViewById(R.id.parent);
+
+        parentView.post(() -> setupAds());
     }
 
 
