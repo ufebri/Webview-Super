@@ -207,4 +207,8 @@ fabric.properties
 
 !/gradle/wrapper/gradle-wrapper.jar
 
+### Additional ###
+app/release/
+superwebviewkey
+
 # End of https://www.toptal.com/developers/gitignore/api/gradle,java,android,androidstudio

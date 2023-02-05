@@ -11,10 +11,10 @@
     <string name="permission_message_description_storage">This app needs access to your location so you can upload file on it</string>
 
     <!--  General Message  -->
-    <string name="alert_quit_title">Yakin Ingin Keluar?</string>
-    <string name="alert_quit_message">Ada banyak cerita yang belum kamu baca, yakin mau keluar?</string>
-    <string name="text_yes">Ya</string>
-    <string name="text_no">Tidak</string>
+    <string name="alert_quit_title">Quit Apps</string>
+    <string name="alert_quit_message">There\'s a lot story here, are you sure want to quit?</string>
+    <string name="text_yes">Yes</string>
+    <string name="text_no">No</string>
     <string name="text_action_share">Share</string>
     <string name="text_action_settings">Settings</string>
     <string name="text_accept">Accept</string>
