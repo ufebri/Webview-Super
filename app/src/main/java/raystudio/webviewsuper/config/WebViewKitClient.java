@@ -13,7 +13,7 @@ public class WebViewKitClient extends WebViewClient {
             Intent tel = new Intent(Intent.ACTION_DIAL, Uri.parse(url));
             view.getContext().startActivity(tel);
             return true;
-        } else if (url.contains("mailto:")) {
+        } else if (url.contains("mailto:") || url.startsWith("whatsapp:")) {
             view.getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
             return true;
 

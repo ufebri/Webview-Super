@@ -5,13 +5,13 @@
     android:id="@+id/cl_webView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorSplashScreenBackground"
+    android:background="@android:color/black"
     tools:context=".MainActivity">
 
     <ImageView
         android:id="@+id/img_splash"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/img_height_splash"
+        android:layout_height="wrap_content"
         android:background="@android:color/transparent"
         android:contentDescription="@string/img_desc_icon_splashscreen"
         android:elevation="0dp"

@@ -21,6 +21,7 @@
     <string name="text_deny">Deny</string>
     <string name="text_downloading_file">Downloading File</string>
     <string name="general_error_system">There\'s something wrong with the app, check this class configuration or ask the administrator</string>
+    <string name="general_error_setupConfig">App Config Not Found</string>
 
 
     <!--  Description of ImageView  -->
@@ -94,6 +95,28 @@
 
     <!--  Admob ID  -->
     <string name="admob_id_dev">ca-app-pub-3940256099942544~3347511713</string>
+    <string name="admob_id_banner_dev">ca-app-pub-3940256099942544/6300978111</string>
+
     <string name="admob_id_prod">ca-app-pub-4922421629652166~4785264100</string>
     <string name="admob_id_banner">ca-app-pub-4922421629652166/8780618936</string>
+
+    <!--  Link Grid Menu  -->
+    <string name="links_grid_login">https://bit.ly/3peAaOF</string>
+    <string name="links_grid_register">https://bit.ly/3peAaOF</string>
+    <string name="links_grid_prediksi_togel">http://68.183.228.4/</string>
+    <string name="links_grid_wa_number">https://wa.me/6281347928599</string>
+    <string name="links_grid_result">https://bit.ly/3NGuSn9</string>
+    <string name="links_grid_buku_mimpi">https://bit.ly/3JJN6mF</string>
+
+    <!--  Togel  -->
+    <string name="label_menu_login">Login Akun</string>
+    <string name="label_menu_daftar">Daftar Akun</string>
+    <string name="label_menu_prediksi_togel">Prediksi Togel</string>
+    <string name="label_menu_wa">WhatsApp</string>
+    <string name="label_menu_result">Result</string>
+    <string name="label_menu_buku_mimpi">Buku Mimpi</string>
+
+    <!--  Title GRID  -->
+    <string name="label_title_primary_menu">Selamat Datang di aplikasi</string>
+    <string name="label_title_secondary">Customer service 24 jam</string>
 </resources>
