@@ -11,13 +11,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.DecelerateInterpolator;
-import android.webkit.WebView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -28,16 +28,14 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.initialization.InitializationStatus;
-import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 
 import java.util.List;
 
+import pub.devrel.easypermissions.EasyPermissions;
 import raystudio.webviewsuper.MainActivity;
 import raystudio.webviewsuper.R;
 import raystudio.webviewsuper.util.ConnectionReceiver;
 import raystudio.webviewsuper.util.GeneralHelper;
-import pub.devrel.easypermissions.EasyPermissions;
 
 public class BaseApp extends AppCompatActivity implements EasyPermissions.PermissionCallbacks, ConnectionReceiver.ReceiverListener, SwipeRefreshLayout.OnRefreshListener {
 
@@ -51,7 +49,8 @@ public class BaseApp extends AppCompatActivity implements EasyPermissions.Permis
         super.onCreate(savedInstanceState);
 
         //init ads
-        MobileAds.initialize(this);
+        if (Constant.isNeedToShowAds)
+            MobileAds.initialize(this);
 
         //check connection
         isConnected = GeneralHelper.checkConnection(this);
@@ -176,10 +175,18 @@ public class BaseApp extends AppCompatActivity implements EasyPermissions.Permis
 
     protected void setupAds() {
         //Adview Config
+        try {
+            adViewBanner = findViewById(R.id.adView_banner);
+            if (Constant.isNeedToShowAds) {
+                adRequest = new AdRequest.Builder().build();
+                adViewBanner.loadAd(adRequest);
+            } else {
+                adViewBanner.setVisibility(View.GONE);
+            }
+        } catch (Exception e) {
+            adViewBanner.setVisibility(View.GONE);
+        }
 
-        adViewBanner = findViewById(R.id.adView_banner);
-        adRequest = new AdRequest.Builder().build();
-        adViewBanner.loadAd(adRequest);
     }
 
     @Override

@@ -22,8 +22,6 @@ import android.view.WindowManager;
 import android.webkit.ValueCallback;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -36,13 +34,13 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
+import pub.devrel.easypermissions.EasyPermissions;
 import raystudio.webviewsuper.config.BaseApp;
 import raystudio.webviewsuper.config.ChromeClient;
 import raystudio.webviewsuper.config.WebViewKitClient;
 import raystudio.webviewsuper.ui.component.CustomWebView;
 import raystudio.webviewsuper.ui.component.GeneralAlertDialog;
 import raystudio.webviewsuper.ui.settings.SettingsActivity;
-import pub.devrel.easypermissions.EasyPermissions;
 
 public class MainActivity extends BaseApp implements View.OnClickListener {
 

@@ -21,7 +21,6 @@
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/floating_action_settings"
         android:layout_width="wrap_content"
@@ -61,7 +60,6 @@
         app:layout_constraintBottom_toTopOf="@id/floating_action_button"
         app:layout_constraintEnd_toEndOf="parent"
         tools:visibility="visible" />
-
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floating_action_button"

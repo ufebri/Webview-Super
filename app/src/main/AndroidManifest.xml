@@ -16,7 +16,11 @@
         android:label="@string/app_name"
         android:roundIcon="@drawable/ic_app"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name="raystudio.webviewsuper.ui.gridmenu.GridMenuActivity"
+            android:exported="false" />
         <activity
             android:name="raystudio.webviewsuper.ui.settings.SettingsActivity"
             android:exported="false"
@@ -40,14 +44,13 @@
             </intent-filter>
         </activity>
 
-        <!--     Admob   -->
+        <!-- Admob -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/admob_id_dev" />
-
         <meta-data
             android:name="com.google.android.gms.ads.INTEGRATION_MANAGER"
-            android:value="wv_nyoloWeb"/>
+            android:value="wv_nyoloWeb" />
     </application>
 
 </manifest>

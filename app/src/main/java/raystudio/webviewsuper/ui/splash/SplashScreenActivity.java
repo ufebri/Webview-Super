@@ -1,7 +1,6 @@
 package raystudio.webviewsuper.ui.splash;
 
 import static raystudio.webviewsuper.config.Constant.SPLASH_LOAD_TIME;
-import static raystudio.webviewsuper.config.Constant.isDemoModeActivated;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -13,13 +12,16 @@ import android.view.animation.AnimationSet;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
 import raystudio.webviewsuper.MainActivity;
 import raystudio.webviewsuper.R;
 import raystudio.webviewsuper.config.BaseApp;
+import raystudio.webviewsuper.config.Constant;
 import raystudio.webviewsuper.ui.demo.DemoActivity;
+import raystudio.webviewsuper.ui.gridmenu.GridMenuActivity;
 
 @SuppressLint("CustomSplashScreen")
 public class SplashScreenActivity extends BaseApp {
@@ -40,7 +42,21 @@ public class SplashScreenActivity extends BaseApp {
             //setAnimation
             splash.setAnimation(getAnimation());
 
-            startActivity(new Intent(SplashScreenActivity.this, isDemoModeActivated ? DemoActivity.class : MainActivity.class));
+            switch (Constant.appConfig) {
+                case DEMO_MODE:
+                    startActivity(new Intent(SplashScreenActivity.this, DemoActivity.class));
+                    break;
+                case DIRECT_WEBVIEW_MODE:
+                    startActivity(new Intent(SplashScreenActivity.this, MainActivity.class));
+                    break;
+                case GRID_MENU_WEBVIEW_MODE:
+                    startActivity(new Intent(SplashScreenActivity.this, GridMenuActivity.class));
+                    break;
+                default:
+                    Toast.makeText(this, getString(R.string.general_error_setupConfig), Toast.LENGTH_LONG).show();
+                    break;
+            }
+
             finish();
         }, SPLASH_LOAD_TIME);
     }

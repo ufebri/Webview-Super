@@ -9,7 +9,6 @@ import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.ViewGroup;
 import android.view.WindowMetrics;
-import android.widget.FrameLayout;
 
 import androidx.fragment.app.FragmentActivity;
 

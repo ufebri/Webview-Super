@@ -17,8 +17,21 @@ public class Constant {
 
     public static final boolean isDemoModeActivated = false; //Demo Mode is for selling
 
+    public static final boolean isNeedToShowAds = false;
+
+    public static final boolean isNeedToShowFAB = false;
+
     public static final String[] REQUIRED_PERMISSION = {Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION};
 
     //TODO: Change the URL to yours web
     public static String WEB_URL = "https://raytalktech.com";
+
+    //TODO: Set appConfig Mode
+    public static MAIN_APP_CONFIG appConfig = MAIN_APP_CONFIG.GRID_MENU_WEBVIEW_MODE;
+
+    public enum MAIN_APP_CONFIG {
+        DEMO_MODE,
+        DIRECT_WEBVIEW_MODE,
+        GRID_MENU_WEBVIEW_MODE
+    }
 }
