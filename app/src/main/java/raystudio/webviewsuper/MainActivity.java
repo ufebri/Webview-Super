@@ -6,6 +6,7 @@ import static raystudio.webviewsuper.config.Constant.REQUIRED_PERMISSION;
 import static raystudio.webviewsuper.config.Constant.SPLASH_LOAD_TIME;
 import static raystudio.webviewsuper.config.Constant.WEB_URL;
 import static raystudio.webviewsuper.config.Constant.isDemoModeActivated;
+import static raystudio.webviewsuper.config.Constant.isNeedToShowFAB;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
@@ -106,7 +107,7 @@ public class MainActivity extends BaseApp implements View.OnClickListener {
             public void onPageFinished(WebView view, String url) {
                 view.postDelayed(() -> {
                     refreshLayout.setVisibility(View.VISIBLE);
-                    fabMain.setVisibility(View.VISIBLE);
+                    showingMainFAB(true);
                     setToRefresh(chromeClient.isNeedToRefresh);
                 }, SPLASH_LOAD_TIME);
             }
@@ -133,7 +134,7 @@ public class MainActivity extends BaseApp implements View.OnClickListener {
                 }
 
                 //fab is gone
-                fabMain.hide();
+                showingMainFAB(false);
             } else {
                 attrs.flags &= ~WindowManager.LayoutParams.FLAG_FULLSCREEN;
                 attrs.flags &= ~WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
@@ -144,7 +145,7 @@ public class MainActivity extends BaseApp implements View.OnClickListener {
                 }
 
                 //fab is show
-                fabMain.show();
+                showingMainFAB(true);
             }
         });
 
@@ -289,5 +290,15 @@ public class MainActivity extends BaseApp implements View.OnClickListener {
 
     private String getUrl() {
         return url != null ? url : WEB_URL;
+    }
+
+    private void showingMainFAB(boolean isShowing) {
+        if (isNeedToShowFAB && isShowing) {
+            fabMain.show();
+            fabMain.setVisibility(View.VISIBLE);
+        } else {
+            fabMain.hide();
+            fabMain.setVisibility(View.GONE);
+        }
     }
 }
