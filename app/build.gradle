@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'com.google.gms.google-services'
     id 'com.google.firebase.crashlytics'
+    id 'com.google.firebase.appdistribution'
 }
 
 android {
@@ -29,6 +30,13 @@ android {
             debuggable false
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            firebaseAppDistribution {
+                appId="1:289442952260:android:9e3f3357bdfeb356517811"
+                artifactType="APK"
+                releaseNotes="update dulu"
+                testers="ali@example.com, bri@example.com, cal@example.com"
+            }
         }
     }
 

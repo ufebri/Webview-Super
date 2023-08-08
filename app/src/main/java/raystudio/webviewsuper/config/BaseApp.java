@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
@@ -184,6 +185,7 @@ public class BaseApp extends AppCompatActivity implements EasyPermissions.Permis
                 adViewBanner.setVisibility(View.GONE);
             }
         } catch (Exception e) {
+            Log.d("Banner-Error", "setupAds: " + e);
             adViewBanner.setVisibility(View.GONE);
         }
 
