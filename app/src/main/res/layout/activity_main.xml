@@ -5,8 +5,7 @@
     android:id="@+id/content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorSplashScreenBackground"
-    tools:context=".MainActivity">
+    android:background="@color/colorSplashScreenBackground">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/srl_webview"
@@ -14,7 +13,7 @@
         android:layout_height="match_parent"
         tools:visibility="visible">
 
-        <raystudio.webviewsuper.ui.component.CustomWebView
+        <semicolon.id.webviewsuper.ui.component.CustomWebView
             android:id="@+id/wv_nyoloWeb"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

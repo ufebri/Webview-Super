@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="raystudio.webviewsuper">
+    package="semicolon.id.webviewsuper">
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -19,23 +23,23 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
-            android:name="raystudio.webviewsuper.ui.gridmenu.GridMenuActivity"
+            android:name="semicolon.id.webviewsuper.ui.gridmenu.GridMenuActivity"
             android:exported="false" />
         <activity
-            android:name="raystudio.webviewsuper.ui.settings.SettingsActivity"
+            android:name="semicolon.id.webviewsuper.ui.settings.SettingsActivity"
             android:exported="false"
             android:label="@string/label_menu_settings"
             android:theme="@style/AppTheme.ActionBar" />
         <activity
-            android:name="raystudio.webviewsuper.MainActivity"
+            android:name="semicolon.id.webviewsuper.MainActivity"
             android:configChanges="orientation|screenSize"
             android:exported="true" />
         <activity
-            android:name="raystudio.webviewsuper.ui.demo.DemoActivity"
+            android:name="semicolon.id.webviewsuper.ui.demo.DemoActivity"
             android:exported="true" />
 
         <activity
-            android:name="raystudio.webviewsuper.ui.splash.SplashScreenActivity"
+            android:name="semicolon.id.webviewsuper.ui.splash.SplashScreenActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
