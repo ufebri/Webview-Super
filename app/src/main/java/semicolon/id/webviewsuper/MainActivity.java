@@ -100,6 +100,10 @@ public class MainActivity extends BaseApp implements View.OnClickListener {
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 super.onPageStarted(view, url, favicon);
+                //Never Run ADS on Youtube
+                //Learn more : https://support.google.com/googleplay/android-developer/answer/9888379/
+                adViewBanner.setVisibility(url.contains("youtube") ? View.GONE : View.VISIBLE);
+
                 setToRefresh(chromeClient.isNeedToRefresh);
             }
 
