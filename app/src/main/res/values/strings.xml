@@ -93,13 +93,6 @@
     <!--  Label Menu  -->
     <string name="label_menu_settings">@string/text_action_settings</string>
 
-    <!--  Admob ID  -->
-    <string name="admob_id_dev">ca-app-pub-3940256099942544~3347511713</string>
-    <string name="admob_id_banner_dev">ca-app-pub-3940256099942544/6300978111</string>
-
-    <string name="admob_id_prod">ca-app-pub-4922421629652166~4785264100</string>
-    <string name="admob_id_banner">ca-app-pub-4922421629652166/8780618936</string>
-
     <!--  Link Grid Menu  -->
     <string name="links_grid_login">https://bit.ly/3peAaOF</string>
     <string name="links_grid_register">https://bit.ly/3peAaOF</string>
