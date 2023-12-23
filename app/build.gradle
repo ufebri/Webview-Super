@@ -5,6 +5,10 @@ plugins {
     id 'com.google.firebase.appdistribution'
 }
 
+def apikeyPropertiesFile = rootProject.file("config.properties")
+def configProperties = new Properties()
+configProperties.load(new FileInputStream(apikeyPropertiesFile))
+
 android {
     compileSdk 33
     defaultConfig {
@@ -23,6 +27,8 @@ android {
             ext.enableCrashlytics = false
             debuggable true
             multiDexEnabled true
+            resValue("string", "ads_application_id", configProperties["admob_id_dev"])
+            resValue("string", "admob_banner_id", configProperties["admob_id_banner_dev"])
         }
 
         release {
@@ -30,6 +36,8 @@ android {
             debuggable false
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            resValue("string", "ads_application_id", configProperties["admob_id_prod"])
+            resValue("string", "admob_banner_id", configProperties["admob_id_banner_prod"])
 
             firebaseAppDistribution {
                 appId="1:289442952260:android:9e3f3357bdfeb356517811"

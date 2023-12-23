@@ -51,7 +51,7 @@
         <!-- Admob -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="@string/admob_id_prod" />
+            android:value="@string/ads_application_id" />
         <meta-data
             android:name="com.google.android.gms.ads.INTEGRATION_MANAGER"
             android:value="wv_nyoloWeb" />
