@@ -50,7 +50,7 @@ public class ChromeClient extends VideoEnabledWebChromeClient {
         for (String r : requestedResources) {
             if (r.equals(PermissionRequest.RESOURCE_VIDEO_CAPTURE)) {
                 // In this sample, we only accept video capture request.
-                new GeneralAlertDialog(context, context.getString(R.string.permission_title_camera), context.getString(R.string.text_accept), context.getString(R.string.text_deny), isPass -> {
+                new GeneralAlertDialog(context, context.getString(R.string.permission_title_camera), context.getString(R.string.text_accept), context.getString(R.string.text_deny), (isPass, mValue) -> {
                     if (isPass)
                         mPermissionRequest.grant(new String[]{PermissionRequest.RESOURCE_VIDEO_CAPTURE});
                     else mPermissionRequest.deny();

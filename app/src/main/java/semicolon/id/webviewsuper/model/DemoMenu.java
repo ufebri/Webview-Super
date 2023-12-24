@@ -79,6 +79,7 @@ public class DemoMenu {
     public static final int TRY_VIDEO = 5;
     public static final int TRY_GEOLOCATION = 6;
     public static final int TRY_MAPS = 7;
+    public static final int TRY_YOUR_WEB = 8;
 
     public List<DemoMenu> getListDemoMenu(Context context) {
         List<DemoMenu> mList = new ArrayList<>();
@@ -87,7 +88,7 @@ public class DemoMenu {
         mList.add(new DemoMenu(context.getString(R.string.demo_introduction_title), context.getString(R.string.demo_introduction_caption), context.getString(R.string.demo_introduction_primaryAction), ContextCompat.getDrawable(context, R.drawable.img_icon_splash), FULL_CONTENT_WITHOUT_SECONDARY_ACTION, GO_TO_WEB_PAGE));
 
         //Check User Website
-        mList.add(new DemoMenu(context.getString(R.string.demo_user_web_title), context.getString(R.string.demo_user_web_caption), context.getString(R.string.demo_user_web_primaryAction), FULL_CONTENT_WITHOUT_COVER_AND_SECONDARY_ACTION, GO_TO_GOOGLE));
+        mList.add(new DemoMenu(context.getString(R.string.demo_user_web_title), context.getString(R.string.demo_user_web_caption), context.getString(R.string.demo_user_web_primaryAction), context.getString(R.string.demo_user_web_secondaryAction), FULL_CONTENT_WITHOUT_COVER, GO_TO_GOOGLE, TRY_YOUR_WEB));
 
         //Check Download & upload
         mList.add(new DemoMenu(context.getString(R.string.demo_download_upload_title), context.getString(R.string.demo_download_upload_caption), context.getString(R.string.demo_download_upload_primaryAction), context.getString(R.string.demo_download_upload_secondaryAction), FULL_CONTENT_WITHOUT_COVER, TRY_DOWNLOAD, TRY_UPLOAD));
