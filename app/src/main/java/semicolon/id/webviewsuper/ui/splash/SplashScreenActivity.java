@@ -16,12 +16,12 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
-import semicolon.id.webviewsuper.config.BaseApp;
-import semicolon.id.webviewsuper.ui.gridmenu.GridMenuActivity;
+import semicolon.id.webviewsuper.MainActivity;
 import semicolon.id.webviewsuper.R;
+import semicolon.id.webviewsuper.config.BaseApp;
 import semicolon.id.webviewsuper.config.Constant;
 import semicolon.id.webviewsuper.ui.demo.DemoActivity;
-import semicolon.id.webviewsuper.MainActivity;
+import semicolon.id.webviewsuper.ui.gridmenu.GridMenuActivity;
 
 @SuppressLint("CustomSplashScreen")
 public class SplashScreenActivity extends BaseApp {

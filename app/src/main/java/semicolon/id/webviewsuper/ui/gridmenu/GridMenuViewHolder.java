@@ -7,8 +7,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import semicolon.id.webviewsuper.model.GridMenu;
 import semicolon.id.webviewsuper.R;
+import semicolon.id.webviewsuper.model.GridMenu;
 import semicolon.id.webviewsuper.util.OnClickListenerHelper;
 
 public class GridMenuViewHolder extends RecyclerView.ViewHolder {

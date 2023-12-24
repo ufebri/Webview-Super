@@ -3,9 +3,9 @@ package semicolon.id.webviewsuper.util;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 
 import androidx.annotation.DrawableRes;
+
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;

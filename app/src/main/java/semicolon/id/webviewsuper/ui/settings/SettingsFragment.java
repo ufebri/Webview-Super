@@ -11,8 +11,8 @@ import androidx.annotation.Nullable;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
-import semicolon.id.webviewsuper.R;
 import semicolon.id.webviewsuper.MainActivity;
+import semicolon.id.webviewsuper.R;
 
 public class SettingsFragment extends PreferenceFragmentCompat implements Preference.OnPreferenceClickListener {
 

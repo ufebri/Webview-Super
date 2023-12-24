@@ -5,11 +5,11 @@ import android.os.Bundle;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import semicolon.id.webviewsuper.MainActivity;
 import semicolon.id.webviewsuper.R;
 import semicolon.id.webviewsuper.config.BaseApp;
 import semicolon.id.webviewsuper.databinding.ActivityGridMenuBinding;
 import semicolon.id.webviewsuper.model.GridMenu;
-import semicolon.id.webviewsuper.MainActivity;
 
 public class GridMenuActivity extends BaseApp {
 

@@ -9,9 +9,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import semicolon.id.webviewsuper.R;
 import semicolon.id.webviewsuper.model.DemoMenu;
 import semicolon.id.webviewsuper.util.GeneralHelper;
-import semicolon.id.webviewsuper.R;
 
 public class DemoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
