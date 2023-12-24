@@ -116,4 +116,8 @@ public class ChromeClient extends VideoEnabledWebChromeClient {
         super.onGeolocationPermissionsShowPrompt(origin, callback);
         callback.invoke(origin, true, false);
     }
+
+    public void clearResultChooserImage() {
+        resultChooserImage = null;
+    }
 }
