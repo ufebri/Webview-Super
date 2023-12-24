@@ -9,11 +9,12 @@ def configProperties = new Properties()
 configProperties.load(new FileInputStream(apikeyPropertiesFile))
 
 android {
-    compileSdk 33
+    compileSdk 34
+    namespace "semicolon.id.webviewsuper"
     defaultConfig {
         applicationId "semicolon.id.webviewsuper"
         minSdkVersion 21
-        targetSdk 33
+        targetSdk 34
         versionCode 3
         versionName "1.1"
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
