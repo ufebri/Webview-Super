@@ -177,7 +177,7 @@ public class MainActivity extends BaseApp implements View.OnClickListener {
             webView.goBack();
         } else {
             if (!isDemoModeActivated)
-                new GeneralAlertDialog(this, getString(R.string.alert_quit_title), getString(R.string.alert_quit_message), isPass -> {
+                new GeneralAlertDialog(this, getString(R.string.alert_quit_title), getString(R.string.alert_quit_message), (isPass, mValue) -> {
                     if (isPass) MainActivity.super.onBackPressed();
                 });
             else MainActivity.super.onBackPressed();

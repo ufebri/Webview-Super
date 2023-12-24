@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="TextInputLayout">
+        <attr name="textInputLayoutFocusedDrawable" format="reference" />
+        <attr name="textInputLayoutUnfocusedDrawable" format="reference" />
+        <attr name="textInputLayoutDisabledDrawable" format="reference" />
+        <attr name="textInputLayoutErrorDrawable" format="reference" />
+    </declare-styleable>
+</resources>

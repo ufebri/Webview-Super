@@ -26,4 +26,4 @@ An Project to use a WebView using JAVA and also can be a template for your App P
 
 ## Screenshot
 
-<img src="./assets/home.png" height="150" alt="Home" />
+<img src="./assets/home.png" height="250" alt="Home Screen" /> <img src="./assets/splash.png" height="250" alt="Splash Screen" />

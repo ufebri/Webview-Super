@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <semicolon.id.webviewsuper.util.CustomTIL
+        android:id="@+id/til_url"
+        style="@style/TextInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dimen_16dp"
+        app:endIconMode="clear_text"
+        app:endIconTint="@color/colorPrimaryDark"
+        app:helperText="url must be https://"
+        app:helperTextEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tei_url"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/text_input_white_background_unfocused_shape"
+            android:hint="@string/demo_user_web_secondaryAction"
+            android:imeOptions="actionGo"
+            android:inputType="textUri"
+            android:padding="@dimen/dimen_16dp"
+            tools:text="https://raytalktech.com" />
+    </semicolon.id.webviewsuper.util.CustomTIL>
+
+    <Button
+        android:id="@+id/btn_go"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dimen_16dp"
+        android:layout_marginBottom="@dimen/dimen_16dp"
+        android:background="@color/colorPrimaryDark"
+        android:text="GO!"
+        android:textAllCaps="false" />
+
+</LinearLayout>

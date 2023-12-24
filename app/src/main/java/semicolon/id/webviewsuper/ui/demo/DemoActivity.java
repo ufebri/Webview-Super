@@ -69,6 +69,14 @@ public class DemoActivity extends BaseApp implements View.OnClickListener {
                     WEB_URL = getString(R.string.links_demo_google);
                     startActivity(new Intent(DemoActivity.this, MainActivity.class));
                     break;
+                case DemoMenu.TRY_YOUR_WEB:
+                    new GeneralAlertDialog(this, "Try your URL", (isPass, mValue) -> {
+                        if (isPass) {
+                            WEB_URL = mValue;
+                            startActivity(new Intent(DemoActivity.this, MainActivity.class));
+                        }
+                    });
+                    break;
                 case DemoMenu.TRY_VIDEO:
                     WEB_URL = getString(R.string.links_demo_youtube);
                     startActivity(new Intent(DemoActivity.this, MainActivity.class));
@@ -114,7 +122,7 @@ public class DemoActivity extends BaseApp implements View.OnClickListener {
 
     @Override
     public void onBackPressed() {
-        new GeneralAlertDialog(this, getString(R.string.alert_quit_title), getString(R.string.alert_quit_message), isPass -> {
+        new GeneralAlertDialog(this, getString(R.string.alert_quit_title), getString(R.string.alert_quit_message), (isPass, mValue) -> {
             if (isPass) DemoActivity.super.onBackPressed();
         });
     }

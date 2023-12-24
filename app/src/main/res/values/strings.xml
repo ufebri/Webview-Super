@@ -37,8 +37,9 @@
     <string name="demo_introduction_primaryAction">Webview App Page</string>
 
     <string name="demo_user_web_title">Try Your Website</string>
-    <string name="demo_user_web_caption">Click on the button bellow to test your own website. Just search for your web using Google and check it out.</string>
+    <string name="demo_user_web_caption">Click on the button bellow to test your own website. Just search for your web using Google or put the url and check it out.</string>
     <string name="demo_user_web_primaryAction">Visit Google</string>
+    <string name="demo_user_web_secondaryAction">Try URL</string>
 
     <string name="demo_download_upload_title">Download And Upload</string>
     <string name="demo_download_upload_caption">General WebView App has a download manager. Try to download sample file Cat loud meow sound effect.zip. You can also upload a file with the file picker</string>
