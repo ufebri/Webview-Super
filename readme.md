@@ -21,7 +21,6 @@ An Project to use a WebView using JAVA and also can be a template for your App P
     - Watching Video
     - Geolocation
     - Intent to several action
-    - Firebase Distribution Test
     - Firebase Crashlytics
 
 ## Screenshot
