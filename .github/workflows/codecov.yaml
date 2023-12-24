@@ -11,6 +11,7 @@ jobs:
       ADMOB_ID_BANNER_DEV: ${{ secrets.ADMOB_ID_BANNER_DEV }}
       ADMOB_ID_PROD: ${{ secrets.ADMOB_ID_PROD }}
       ADMOB_ID_BANNER_PROD: ${{ secrets.ADMOB_ID_BANNER_PROD }}
+      GOOGLE_SERVICE_JSON: ${{ secrets.GOOGLE_SERVICE_JSON }}
 
     steps:
       - name: Checkout repository
@@ -24,10 +25,14 @@ jobs:
 
       - name: Create config.properties file
         run: |
-            echo "ADMOB_ID_DEV=${ADMOB_ID_DEV}" > $GITHUB_WORKSPACE/config.properties
-            echo "ADMOB_ID_BANNER_DEV=${ADMOB_ID_BANNER_DEV}" >> $GITHUB_WORKSPACE/config.properties
-            echo "ADMOB_ID_PROD=${ADMOB_ID_PROD}" >> $GITHUB_WORKSPACE/config.properties
-            echo "ADMOB_ID_BANNER_PROD=${ADMOB_ID_BANNER_PROD}" >> $GITHUB_WORKSPACE/config.properties
+          echo "ADMOB_ID_DEV=${ADMOB_ID_DEV}" > $GITHUB_WORKSPACE/config.properties
+          echo "ADMOB_ID_BANNER_DEV=${ADMOB_ID_BANNER_DEV}" >> $GITHUB_WORKSPACE/config.properties
+          echo "ADMOB_ID_PROD=${ADMOB_ID_PROD}" >> $GITHUB_WORKSPACE/config.properties
+          echo "ADMOB_ID_BANNER_PROD=${ADMOB_ID_BANNER_PROD}" >> $GITHUB_WORKSPACE/config.properties
+
+      - name: Create google-services.json file
+        run: |
+          echo "GOOGLE_SERVICE_JSON=${GOOGLE_SERVICE_JSON}" > $GITHUB_WORKSPACE/app/google-services.json
 
       - name: Build and test
         run: ./gradlew clean test

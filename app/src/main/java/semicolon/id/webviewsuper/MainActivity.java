@@ -102,7 +102,14 @@ public class MainActivity extends BaseApp implements View.OnClickListener {
                 super.onPageStarted(view, url, favicon);
                 //Never Run ADS on Youtube
                 //Learn more : https://support.google.com/googleplay/android-developer/answer/9888379/
-                adViewBanner.setVisibility(url.contains("youtube") || url.contains("google") ? View.GONE : View.VISIBLE);
+                boolean isYtURL = url.contains("youtube");
+                boolean isGoogleURL = url.contains("google");
+
+                if (isYtURL || isGoogleURL) {
+                    adViewBanner.setVisibility(View.GONE);
+                } else {
+                    adViewBanner.setVisibility(View.VISIBLE);
+                }
 
                 setToRefresh(chromeClient.isNeedToRefresh);
             }
