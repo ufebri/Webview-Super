@@ -6,6 +6,12 @@ jobs:
   codecov:
     runs-on: ubuntu-latest
 
+    env:
+      ADMOB_ID_DEV: ${{ secrets.ADMOB_ID_DEV }}
+      ADMOB_ID_BANNER_DEV: ${{ secrets.ADMOB_ID_BANNER_DEV }}
+      ADMOB_ID_PROD: ${{ secrets.ADMOB_ID_PROD }}
+      ADMOB_ID_BANNER_PROD: ${{ secrets.ADMOB_ID_BANNER_PROD }}
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -15,6 +21,13 @@ jobs:
         with:
           distribution: 'adopt'
           java-version: '11'
+
+      - name: Create config.properties file
+        run: |
+            echo "ADMOB_ID_DEV=${ADMOB_ID_DEV}" > $GITHUB_WORKSPACE/app/config.properties
+            echo "ADMOB_ID_BANNER_DEV=${ADMOB_ID_BANNER_DEV}" >> $GITHUB_WORKSPACE/app/config.properties
+            echo "ADMOB_ID_PROD=${ADMOB_ID_PROD}" >> $GITHUB_WORKSPACE/app/config.properties
+            echo "ADMOB_ID_BANNER_PROD=${ADMOB_ID_BANNER_PROD}" >> $GITHUB_WORKSPACE/app/config.properties
 
       - name: Build and test
         run: ./gradlew clean test
