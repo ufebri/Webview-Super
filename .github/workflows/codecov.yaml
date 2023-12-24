@@ -24,10 +24,10 @@ jobs:
 
       - name: Create config.properties file
         run: |
-            echo "ADMOB_ID_DEV=${ADMOB_ID_DEV}" > $GITHUB_WORKSPACE/app/config.properties
-            echo "ADMOB_ID_BANNER_DEV=${ADMOB_ID_BANNER_DEV}" >> $GITHUB_WORKSPACE/app/config.properties
-            echo "ADMOB_ID_PROD=${ADMOB_ID_PROD}" >> $GITHUB_WORKSPACE/app/config.properties
-            echo "ADMOB_ID_BANNER_PROD=${ADMOB_ID_BANNER_PROD}" >> $GITHUB_WORKSPACE/app/config.properties
+            echo "ADMOB_ID_DEV=${ADMOB_ID_DEV}" > $GITHUB_WORKSPACE/config.properties
+            echo "ADMOB_ID_BANNER_DEV=${ADMOB_ID_BANNER_DEV}" >> $GITHUB_WORKSPACE/config.properties
+            echo "ADMOB_ID_PROD=${ADMOB_ID_PROD}" >> $GITHUB_WORKSPACE/config.properties
+            echo "ADMOB_ID_BANNER_PROD=${ADMOB_ID_BANNER_PROD}" >> $GITHUB_WORKSPACE/config.properties
 
       - name: Build and test
         run: ./gradlew clean test

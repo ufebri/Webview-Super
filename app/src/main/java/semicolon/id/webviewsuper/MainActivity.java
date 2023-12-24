@@ -102,7 +102,7 @@ public class MainActivity extends BaseApp implements View.OnClickListener {
                 super.onPageStarted(view, url, favicon);
                 //Never Run ADS on Youtube
                 //Learn more : https://support.google.com/googleplay/android-developer/answer/9888379/
-                adViewBanner.setVisibility(url.contains("youtube") ? View.GONE : View.VISIBLE);
+                adViewBanner.setVisibility(url.contains("youtube") || url.contains("google") ? View.GONE : View.VISIBLE);
 
                 setToRefresh(chromeClient.isNeedToRefresh);
             }
@@ -201,6 +201,9 @@ public class MainActivity extends BaseApp implements View.OnClickListener {
             Uri mCapturedImageURI = chromeClient.getResultChooserImage().getUri();
             if (mUploadMessages != null)
                 handleUploadMessages(intent, mUploadMessages, mCapturedImageURI);
+
+            // Unregister or clear ResultChooserImage
+            chromeClient.clearResultChooserImage();
         }
     }
 
@@ -304,5 +307,15 @@ public class MainActivity extends BaseApp implements View.OnClickListener {
             fabMain.hide();
             fabMain.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        // Unregister or clear resources here
+        if (chromeClient != null) {
+            chromeClient.clearResultChooserImage();
+        }
+
+        super.onDestroy();
     }
 }
