@@ -27,8 +27,8 @@ android {
             ext.enableCrashlytics = false
             debuggable true
             multiDexEnabled true
-            resValue("string", "ads_application_id", configProperties["admob_id_dev"])
-            resValue("string", "admob_banner_id", configProperties["admob_id_banner_dev"])
+            resValue("string", "ads_application_id", configProperties["ADMOB_ID_DEV"])
+            resValue("string", "admob_banner_id", configProperties["ADMOB_ID_BANNER_DEV"])
         }
 
         release {
@@ -36,8 +36,8 @@ android {
             debuggable false
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            resValue("string", "ads_application_id", configProperties["admob_id_prod"])
-            resValue("string", "admob_banner_id", configProperties["admob_id_banner_prod"])
+            resValue("string", "ads_application_id", configProperties["ADMOB_ID_PROD"])
+            resValue("string", "admob_banner_id", configProperties["ADMOB_ID_BANNER_PROD"])
 
             firebaseAppDistribution {
                 appId="1:289442952260:android:9e3f3357bdfeb356517811"

@@ -82,8 +82,6 @@ public class GeneralAlertDialog {
             public void afterTextChanged(Editable editable) {
                 // Check if the entered text is not empty
                 if (editable.length() > 0) {
-                    // Set the boxStrokeColor to blue
-                    // textInputLayout.setBoxStrokeColorResource(R.color.colorBlue);
                     binding.tilUrl.setError(null);
 
                     if (editable.toString().startsWith("https://")) {
@@ -93,8 +91,7 @@ public class GeneralAlertDialog {
                         binding.tilUrl.setError("Must be start with https://");
                     }
                 } else {
-                    // Set the boxStrokeColor to the default color
-                    // textInputLayout.setBoxStrokeColorResource(R.color.colorPrimary);
+                    binding.tilUrl.setError(null);
                 }
             }
         });
