@@ -69,14 +69,14 @@
     <!--  Links  -->
     <string name="links_app_playstore">https://play.google.com/store/apps/details?id=semicolon.id.webviewsuper</string>
     <string name="links_demo_download">https://orangefreesounds.com/wp-content/uploads/2023/01/Cat-loud-meow-sound-effect.zip</string>
-    <string name="links_demo_homepage">https://raytalktech.com</string>
+    <string name="links_demo_homepage">https://play.google.com/store/apps/dev?id=7454307270843630703</string>
     <string name="links_demo_google">https://google.com</string>
     <string name="links_demo_youtube">https://youtube.com</string>
     <string name="links_demo_upload">https://remove.bg</string>
     <string name="links_demo_geolocation">https://mylocation.org/</string>
     <string name="links_demo_maps">https://maps.google.com</string>
-    <string name="links_preferences_privacy_policy">https://raytalktech.com/privacy-policy/</string>
-    <string name="links_preferences_about">https://raytalktech.com/privacy-policy/</string>
+    <string name="links_preferences_privacy_policy">https://webview-super.web.app/</string>
+    <string name="links_preferences_about">https://webview-super.web.app/</string>
 
     <!--  Preferences  -->
     <string name="prefrences_title_group_general">General</string>
