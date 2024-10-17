@@ -26,10 +26,14 @@ public class GeneralHelper {
         IntentFilter intentFilter = new IntentFilter();
 
         // add action
-        intentFilter.addAction("android.new.conn.CONNECTIVITY_CHANGE");
+        intentFilter.addAction("android.net.conn.CONNECTIVITY_CHANGE");
 
-        // register receiver
-        context.registerReceiver(new ConnectionReceiver(), intentFilter);
+        // register receiver with correct flag for Android 12+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+            context.registerReceiver(new ConnectionReceiver(), intentFilter, Context.RECEIVER_NOT_EXPORTED);
+        } else {
+            context.registerReceiver(new ConnectionReceiver(), intentFilter);
+        }
 
         // Initialize listener
         ConnectionReceiver.Listener = (ConnectionReceiver.ReceiverListener) context;
@@ -43,6 +47,7 @@ public class GeneralHelper {
         // get connection status
         return networkInfo != null && networkInfo.isConnectedOrConnecting();
     }
+
 
     public static AdSize getAdSize(FragmentActivity context, ViewGroup adContainerView) {
         int adWidth;
