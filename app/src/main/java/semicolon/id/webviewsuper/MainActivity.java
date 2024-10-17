@@ -7,6 +7,7 @@ import static semicolon.id.webviewsuper.config.Constant.SPLASH_LOAD_TIME;
 import static semicolon.id.webviewsuper.config.Constant.WEB_URL;
 import static semicolon.id.webviewsuper.config.Constant.isDemoModeActivated;
 import static semicolon.id.webviewsuper.config.Constant.isNeedToShowFAB;
+import static semicolon.id.webviewsuper.config.Constant.isYourWebHasBeenAdded;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
@@ -89,8 +90,14 @@ public class MainActivity extends BaseApp implements View.OnClickListener {
         else
             EasyPermissions.requestPermissions(this, getString(R.string.permission_message_description_camera), REQUEST_REQUIRED_PERMISSION, REQUIRED_PERMISSION);
 
-        //setupAds
-        parentView.post(() -> setupAds());
+        /**
+         * Only Activate this after you claim your web on Google
+         * means you need put ads.txt on your own web
+         * https://developers.google.com/search/docs/essentials?visit_id=638647733378710628-2109485131&rd=1#3
+         */
+
+        if (isYourWebHasBeenAdded)
+            parentView.post(() -> setupAds());
     }
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -124,8 +131,10 @@ public class MainActivity extends BaseApp implements View.OnClickListener {
             }
         });
 
-        MobileAds.registerWebView(webView);
-        webView.loadUrl(getUrl());
+        if (isYourWebHasBeenAdded) {
+            MobileAds.registerWebView(webView);
+            webView.loadUrl(getUrl());
+        }
 
         //Set Custom Chrome Client
         chromeClient = new ChromeClient(this, parentView, webView, (intent, resultCode) -> startActivityForResult(intent, resultCode));

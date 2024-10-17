@@ -21,6 +21,8 @@ public class Constant {
 
     public static final boolean isNeedToShowFAB = true;
 
+    public static final boolean isYourWebHasBeenAdded = false;
+
     public static final String[] REQUIRED_PERMISSION = {Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION};
 
     //TODO: Change the URL to yours web
